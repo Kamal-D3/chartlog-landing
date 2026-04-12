@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chartlog — The AI-Powered Trading Journal</title>
+<meta name="description" content="The only trading journal that thinks with you. Log trades, analyze your edge, and grow with an AI coach that adapts to your strategy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #050810;
+  --dark: #080d1c;
+  --card: #0c1222;
+  --border: #151e35;
+  --border2: #1d2b4a;
+  --text: #e8edf8;
+  --muted: #5a6d8a;
+  --soft: #8fa4c4;
+  --accent: #00d4ff;
+  --accent2: #3b82f6;
+  --green: #00e68a;
+  --purple: #a855f7;
+  --warn: #f59e0b;
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --display: 'Syne', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: .4;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 5%;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(5,8,16,.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-mark {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: -1px;
+}
+.nav-logo-text {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -.3px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff !important;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  text-decoration: none;
+  transition: opacity .2s, transform .2s !important;
+  box-shadow: 0 0 20px rgba(0,212,255,.2);
+}
+.nav-cta:hover { opacity: .9; transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 5% 80px;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,212,255,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168,85,247,.05) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 50% at 20% 70%, rgba(59,130,246,.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+/* Animated grid */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: 0 auto;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(0,212,255,.08);
+  border: 1px solid rgba(0,212,255,.2);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 28px;
+  letter-spacing: .3px;
+  animation: fadeUp .6s ease both;
+}
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+
+.hero h1 {
+  font-family: var(--display);
+  font-size: clamp(42px, 7vw, 82px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  animation: fadeUp .7s .1s ease both;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--soft);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+  font-weight: 400;
+  animation: fadeUp .7s .2s ease both;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp .7s .3s ease both;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 12px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(0,212,255,.25), 0 4px 20px rgba(0,0,0,.4);
+  transition: all .25s;
+  letter-spacing: -.2px;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0,212,255,.35), 0 8px 30px rgba(0,0,0,.4); }
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--soft);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  transition: all .25s;
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--soft); }
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  margin-top: 64px;
+  flex-wrap: wrap;
+  animation: fadeUp .7s .4s ease both;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--text);
+  display: block;
+}
+.hero-stat-num em {
+  font-style: normal;
+  color: var(--accent);
+}
+.hero-stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* ── MOCKUP ── */
+.mockup-section {
+  padding: 0 5% 100px;
+  position: relative;
+}
+.mockup-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+}
+.mockup-glow {
+  position: absolute;
+  top: -40px; left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.mockup-frame {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 40px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(0,212,255,.05);
+}
+.mockup-topbar {
+  background: rgba(8,13,28,.9);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
+.mockup-url {
+  flex: 1;
+  background: var(--border);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0 12px;
+  max-width: 260px;
+}
+.mockup-body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  height: 420px;
+}
+.mockup-sidebar {
+  background: rgba(8,13,28,.8);
+  border-right: 1px solid var(--border);
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.mock-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: 7px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.mock-nav-item.active {
+  background: rgba(0,212,255,.08);
+  color: var(--accent);
+}
+.mock-nav-label { font-size: 8px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; padding: 10px 10px 3px; font-weight: 700; }
+.mockup-main {
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+}
+/* KPIs */
+.mock-kpis {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.mock-kpi {
+  background: rgba(13,20,38,.9);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+}
+.mock-kpi-label { font-size: 8px; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 5px; }
+.mock-kpi-val { font-family: var(--mono); font-size: 16px; font-weight: 500; }
+/* Chart mock */
+.mock-chart-wrap {
+  background: rgba(13,20,38,.9);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.mock-chart-title { font-size: 10px; font-weight: 700; color: var(--soft); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 10px; }
+.mock-chart {
+  height: 80px;
+  position: relative;
+  overflow: hidden;
+}
+.mock-chart svg { width: 100%; height: 100%; }
+/* Coach bubble */
+.mock-coach {
+  background: linear-gradient(135deg, rgba(168,85,247,.08), rgba(99,102,241,.04));
+  border: 1px solid rgba(168,85,247,.2);
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.mock-coach-icon {
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, var(--purple), #6366f1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.mock-coach-text { font-size: 11px; color: var(--soft); line-height: 1.5; }
+.mock-coach-text strong { color: #c084fc; display: block; font-size: 10px; margin-bottom: 3px; text-transform: uppercase; letter-spacing: .5px; }
+
+/* ── SECTIONS ── */
+section { padding: 100px 5%; position: relative; }
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.section-label::before {
+  content: '';
+  width: 20px; height: 1px;
+  background: var(--accent);
+}
+h2.section-title {
+  font-family: var(--display);
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+h2.section-title em {
+  font-style: normal;
+  color: var(--accent);
+}
+.section-sub {
+  font-size: 17px;
+  color: var(--soft);
+  max-width: 520px;
+  line-height: 1.7;
+}
+
+/* ── FEATURES ── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 60px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.feat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+.feat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,212,255,.2), transparent);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.feat-card:hover { border-color: var(--border2); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,.4); }
+.feat-card:hover::before { opacity: 1; }
+.feat-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 18px;
+}
+.feat-card h3 {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -.3px;
+}
+.feat-card p {
+  font-size: 13.5px;
+  color: var(--soft);
+  line-height: 1.7;
+}
+.feat-tag {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ── HOW IT WORKS ── */
+.how-wrap {
+  max-width: 900px;
+  margin: 60px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.how-step {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 24px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.how-step:last-child { border-bottom: none; }
+.how-num {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(0,212,255,.06);
+  border: 1px solid rgba(0,212,255,.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.how-content h3 {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -.3px;
+}
+.how-content p { font-size: 14px; color: var(--soft); line-height: 1.7; }
+
+/* ── TESTIMONIALS ── */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 60px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.testi-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+.testi-stars { color: var(--warn); font-size: 13px; margin-bottom: 14px; letter-spacing: 2px; }
+.testi-text { font-size: 14px; color: var(--soft); line-height: 1.8; font-style: italic; margin-bottom: 20px; }
+.testi-author { display: flex; align-items: center; gap: 10px; }
+.testi-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--display);
+}
+.testi-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.testi-role { font-size: 11px; color: var(--muted); }
+
+/* ── PRICING ── */
+.pricing-wrap {
+  max-width: 1000px;
+  margin: 60px auto 0;
+}
+.billing-toggle {
+  display: inline-flex;
+  gap: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 3px;
+  margin-bottom: 48px;
+}
+.billing-btn {
+  padding: 8px 22px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--sans);
+  background: transparent;
+  color: var(--muted);
+  transition: all .2s;
+}
+.billing-btn.active {
+  background: linear-gradient(135deg, rgba(0,212,255,.12), rgba(59,130,246,.08));
+  color: var(--accent);
+}
+.save-badge {
+  font-size: 10px;
+  background: rgba(0,230,138,.12);
+  color: var(--green);
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-left: 5px;
+  font-weight: 700;
+}
+.plans-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.plan-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: all .3s;
+}
+.plan-card:hover { transform: translateY(-4px); }
+.plan-card.featured {
+  border-color: rgba(0,212,255,.3);
+  background: linear-gradient(145deg, rgba(0,212,255,.04), var(--card));
+  box-shadow: 0 0 40px rgba(0,212,255,.06);
+}
+.plan-card.featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.plan-popular {
+  position: absolute;
+  top: 16px; right: 16px;
+  font-size: 10px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.plan-name {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+.plan-price {
+  font-family: var(--mono);
+  font-size: 44px;
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.plan-price span { font-size: 18px; color: var(--muted); margin-left: 2px; }
+.plan-billing { font-size: 12px; color: var(--muted); margin-bottom: 24px; min-height: 18px; }
+.plan-cta {
+  width: 100%;
+  padding: 11px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  margin-bottom: 28px;
+  transition: all .2s;
+}
+.plan-cta.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  box-shadow: 0 2px 20px rgba(0,212,255,.2);
+}
+.plan-cta.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 30px rgba(0,212,255,.3); }
+.plan-cta.ghost {
+  background: var(--border);
+  color: var(--soft);
+}
+.plan-cta.pro {
+  background: linear-gradient(135deg, var(--purple), #6366f1);
+  color: #fff;
+  box-shadow: 0 2px 20px rgba(168,85,247,.2);
+}
+.plan-features { display: flex; flex-direction: column; gap: 10px; }
+.plan-feat {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--soft);
+  align-items: flex-start;
+}
+.plan-feat .check { color: var(--green); flex-shrink: 0; margin-top: 1px; }
+.plan-feat .cross { color: var(--muted); flex-shrink: 0; margin-top: 1px; }
+.plan-feat strong { color: var(--text); }
+
+/* ── COMPARE BAR ── */
+.compare-bar {
+  max-width: 1000px;
+  margin: 48px auto 0;
+  background: rgba(0,212,255,.03);
+  border: 1px solid rgba(0,212,255,.1);
+  border-radius: 16px;
+  padding: 28px;
+  overflow-x: auto;
+}
+.compare-bar table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.compare-bar th {
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.compare-bar th.us { color: var(--accent); }
+.compare-bar td { padding: 10px 12px; text-align: center; border-bottom: 1px solid rgba(26,39,68,.3); color: var(--soft); }
+.compare-bar td:first-child { text-align: left; color: var(--soft); }
+.compare-bar .v { color: var(--green); font-size: 15px; }
+.compare-bar .x { color: var(--muted); font-size: 15px; }
+.compare-bar .us-val { color: var(--accent); font-weight: 700; }
+.compare-note { font-size: 11px; color: var(--muted); margin-top: 12px; text-align: right; }
+
+/* ── CTA BANNER ── */
+.cta-banner {
+  padding: 100px 5%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,212,255,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-banner h2 {
+  font-family: var(--display);
+  font-size: clamp(32px, 5vw, 60px);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.cta-banner h2 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--accent), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.cta-banner p { font-size: 17px; color: var(--soft); margin-bottom: 40px; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logo {
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+}
+.footer-links {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--soft); }
+.footer-copy { font-size: 12px; color: var(--muted); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .features-grid, .plans-grid, .testimonials-grid { grid-template-columns: 1fr; }
+  .mockup-body { grid-template-columns: 1fr; height: auto; }
+  .mockup-sidebar { display: none; }
+  .mock-kpis { grid-template-columns: repeat(3,1fr); }
+  .nav-links { display: none; }
+  .hero-stats { gap: 28px; }
+  footer { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">CL</div>
+    <span class="nav-logo-text">Chartlog</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features" data-i18n="nav.features">Features</a></li>
+    <li><a href="#how" data-i18n="nav.how">How it works</a></li>
+    <li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li>
+    <li>
+      <button onclick="switchLang()" id="langBtn" style="background:rgba(255,255,255,.06);border:1px solid var(--border2);border-radius:7px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--soft);cursor:pointer;font-family:var(--sans);transition:all .2s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--soft)'">
+        🌐 FR
+      </button>
+    </li>
+    <li><a href="https://app.chartlog.ai" class="nav-cta" data-i18n="nav.cta">Start free →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge" id="hero-badge">The AI-powered trading journal</div>
+    <h1 id="hero-h1">Log every trade.<br><em>Grow every session.</em></h1>
+    <p class="hero-sub" id="hero-sub">The all-in-one trading journal that coaches you in real time. Track, analyze, and improve — whatever your strategy, whatever your market.</p>
+    <div class="hero-actions">
+      <a href="https://app.chartlog.ai" class="btn-primary" id="hero-btn1">Start for free <span>→</span></a>
+      <a href="#features" class="btn-ghost" id="hero-btn2">See how it works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num"><em>∞</em> trades</span>
+        <div class="hero-stat-label" id="hero-stat1-label">on paid plans</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num"><em>50+</em> AI analyses</span>
+        <div class="hero-stat-label" id="hero-stat2-label">per month · Trader plan</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num"><em>All</em> strategies</span>
+        <div class="hero-stat-label" id="hero-stat3-label">Ichimoku, SMC, PA, RSI...</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num"><em>19€</em>/mo</span>
+        <div class="hero-stat-label" id="hero-stat4-label">less than most competitors</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APP MOCKUP -->
+<div class="mockup-section">
+  <div class="mockup-wrap">
+    <div class="mockup-glow"></div>
+    <div class="mockup-frame">
+      <div class="mockup-topbar">
+        <div class="mockup-dot" style="background:#ff5f57"></div>
+        <div class="mockup-dot" style="background:#febc2e"></div>
+        <div class="mockup-dot" style="background:#28c840"></div>
+        <div class="mockup-url">app.chartlog.ai · Dashboard</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-sidebar">
+          <div class="mock-nav-label">Trading</div>
+          <div class="mock-nav-item active">◉ Dashboard</div>
+          <div class="mock-nav-item">＋ New trade</div>
+          <div class="mock-nav-item">☰ History</div>
+          <div class="mock-nav-label">Analysis</div>
+          <div class="mock-nav-item">◎ Stats</div>
+          <div class="mock-nav-item">▦ Heatmap</div>
+          <div class="mock-nav-label">AI Coach</div>
+          <div class="mock-nav-item">◈ Coach</div>
+          <div class="mock-nav-item">☼ Brief</div>
+          <div class="mock-nav-item">☾ Review</div>
+        </div>
+        <div class="mockup-main">
+          <div class="mock-kpis">
+            <div class="mock-kpi"><div class="mock-kpi-label">Winrate</div><div class="mock-kpi-val" style="color:#00e68a">67.4%</div></div>
+            <div class="mock-kpi"><div class="mock-kpi-label">P&L</div><div class="mock-kpi-val" style="color:#00e68a">+4,280€</div></div>
+            <div class="mock-kpi"><div class="mock-kpi-label">R:R avg</div><div class="mock-kpi-val" style="color:#c084fc">2.34</div></div>
+            <div class="mock-kpi"><div class="mock-kpi-label">Profit Factor</div><div class="mock-kpi-val" style="color:#00d4ff">2.18</div></div>
+            <div class="mock-kpi"><div class="mock-kpi-label">Discipline</div><div class="mock-kpi-val" style="color:#f59e0b">8.2/10</div></div>
+            <div class="mock-kpi"><div class="mock-kpi-label">Drawdown</div><div class="mock-kpi-val" style="color:#ff4d6a">-3.2%</div></div>
+          </div>
+          <div class="mock-chart-wrap">
+            <div class="mock-chart-title">Equity curve</div>
+            <div class="mock-chart">
+              <svg viewBox="0 0 600 80" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="eq" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#00e68a" stop-opacity=".3"/>
+                    <stop offset="100%" stop-color="#00e68a" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,70 C30,68 60,65 90,60 C120,55 140,58 160,52 C180,46 200,50 220,44 C240,38 255,42 270,36 C285,30 300,34 320,26 C340,18 355,22 375,14 C395,6 420,10 450,8 C480,6 510,8 540,4 C560,2 580,4 600,2 L600,80 L0,80 Z" fill="url(#eq)"/>
+                <path d="M0,70 C30,68 60,65 90,60 C120,55 140,58 160,52 C180,46 200,50 220,44 C240,38 255,42 270,36 C285,30 300,34 320,26 C340,18 355,22 375,14 C395,6 420,10 450,8 C480,6 510,8 540,4 C560,2 580,4 600,2" fill="none" stroke="#00e68a" stroke-width="2"/>
+                <circle cx="600" cy="2" r="4" fill="#00e68a"/>
+              </svg>
+            </div>
+          </div>
+          <div class="mock-coach">
+            <div class="mock-coach-icon">🧠</div>
+            <div class="mock-coach-text">
+              <strong>AI Coach · Last analysis</strong>
+              💡 Your discipline score jumped +1.4pts this week. Your early exits on winning trades are still your main leak — you left an average of +0.8R on the table. Consider trailing your stop after 1R instead of closing manually.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-label" id="feat-label">Features</div>
+    <h2 class="section-title" id="feat-title">Everything in <em>one place</em></h2>
+    <p class="section-sub" id="feat-sub">No more switching between spreadsheets, notes apps, and Discord groups. Chartlog replaces them all.</p>
+
+    <div class="features-grid reveal">
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(0,212,255,.08)">📊</div>
+        <h3 id="feat1-title">Smart Trade Journal</h3>
+        <p id="feat1-p">Log trades in seconds with AI-assisted capture from screenshots. Every entry, exit, emotion, and note — organized automatically.</p>
+        <span class="feat-tag" style="background:rgba(0,212,255,.08);color:var(--accent)">Core</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(168,85,247,.08)">🧠</div>
+        <h3 id="feat2-title">AI Coach</h3>
+        <p id="feat2-p">Chat freely with your personal AI coach. Ask about any trade, any pattern, any strategy. It knows your entire history and adapts to your style.</p>
+        <span class="feat-tag" style="background:rgba(168,85,247,.1);color:#c084fc">AI</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(0,230,138,.08)">🎬</div>
+        <h3 id="feat3-title">Trade Replay</h3>
+        <p id="feat3-p">Each trade gets a detailed AI replay — entry analysis, risk management, exit quality — scored out of 10 with concrete improvement tips.</p>
+        <span class="feat-tag" style="background:rgba(0,230,138,.08);color:var(--green)">AI</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(245,158,11,.08)">☀️</div>
+        <h3 id="feat4-title">Morning Brief</h3>
+        <p id="feat4-p">Start every session with an AI-generated brief based on your last trades. Focus point, warning signals, one trading lesson. Every morning.</p>
+        <span class="feat-tag" style="background:rgba(245,158,11,.08);color:var(--warn)">AI</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(59,130,246,.08)">🔥</div>
+        <h3 id="feat5-title">Performance Heatmap</h3>
+        <p id="feat5-p">Visualize exactly which days and hours you perform best. Stop trading at the wrong time. The data tells the truth — patterns don't lie.</p>
+        <span class="feat-tag" style="background:rgba(59,130,246,.08);color:var(--accent2)">Analytics</span>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(239,68,68,.08)">📅</div>
+        <h3 id="feat6-title">Economic Calendar</h3>
+        <p id="feat6-p">Never get caught by a surprise announcement. The live economic calendar is embedded directly in the app — no more switching tabs.</p>
+        <span class="feat-tag" style="background:rgba(239,68,68,.08);color:#f87171">Live</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background:rgba(8,13,28,.5)">
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-label" id="how-label">How it works</div>
+    <h2 class="section-title" id="how-title">Simple to start.<br><em>Powerful over time.</em></h2>
+    <p class="section-sub" id="how-sub">Chartlog gets smarter the more you trade. It builds a picture of your real edge — and helps you double down on what works.</p>
+
+    <div class="how-wrap reveal">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <div class="how-content">
+          <h3 id="how1-title">Log your trade — in under 60 seconds</h3>
+          <p id="how1-p">Paste a screenshot and our AI fills in the form automatically — instrument, direction, entry, exit, scenario. You just confirm and add your notes.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <div class="how-content">
+          <h3 id="how2-title">Get instant AI feedback on every trade</h3>
+          <p id="how2-p">As soon as a trade is saved, the AI coach analyses your entry, risk management, and exit. It spots your recurring mistakes before they become expensive habits.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <div class="how-content">
+          <h3 id="how3-title">Track your real statistics — not just P&L</h3>
+          <p id="how3-p">Winrate by scenario, discipline score, R:R evolution, emotion impact, hourly heatmap. Numbers that actually tell you where your edge is.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">04</div>
+        <div class="how-content">
+          <h3 id="how4-title">Refine your plan, stay in the zone</h3>
+          <p id="how4-p">Your trading plan lives in Chartlog. The morning brief keeps it top of mind. The evening review closes the loop. Progress becomes a system.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div style="max-width:1100px;margin:0 auto">
+    <div class="section-label" id="testi-label">Traders say</div>
+    <h2 class="section-title" id="testi-title">Built for traders,<br><em>by traders.</em></h2>
+
+    <div class="testimonials-grid reveal">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" id="testi1">"The AI coach actually understands Ichimoku. I told it I use TK crosses on M1 and it analysed all my trades with that framework. Nothing else does this."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:rgba(0,212,255,.12);color:var(--accent)">M</div>
+          <div><div class="testi-name" id="testi1-name">Marc T.</div><div class="testi-role" id="testi1-role">DAX scalper · 2 years</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" id="testi2">"I switched from TradeZella. Chartlog is simpler to use, the AI chat is way better, and I save €15/month. The morning brief alone is worth it."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:rgba(0,230,138,.12);color:var(--green)">S</div>
+          <div><div class="testi-name" id="testi2-name">Sofia R.</div><div class="testi-role" id="testi2-role">S&P 500 · Swing trader</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text" id="testi3">"The heatmap showed me I lose 80% of my trades between 2pm and 3pm. I just stopped trading that window. Best decision I ever made — cost me €19."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:rgba(168,85,247,.12);color:var(--purple)">K</div>
+          <div><div class="testi-name" id="testi3-name">Kevin D.</div><div class="testi-role" id="testi3-role">Forex trader · SMC strategy</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:rgba(8,13,28,.5)">
+  <div style="max-width:1000px;margin:0 auto;text-align:center">
+    <div class="section-label" id="pricing-label">Pricing</div>
+    <h2 class="section-title" id="pricing-title">Start free.<br><em>Upgrade when ready.</em></h2>
+    <p class="section-sub" style="margin:0 auto 40px" id="pricing-sub">No credit card required. Cancel anytime.</p>
+
+    <div class="billing-toggle">
+      <button class="billing-btn active" id="lbm" onclick="switchBilling('monthly')"><span id="billing-monthly">Monthly</span></button>
+      <button class="billing-btn" id="lba" onclick="switchBilling('annual')"><span id="billing-annual-text">Annual</span> <span class="save-badge">Save 25%</span></button>
+    </div>
+
+    <div class="plans-grid reveal">
+      <!-- FREE -->
+      <div class="plan-card">
+        <div class="plan-name" style="color:var(--muted)">Free</div>
+        <div class="plan-price">0€</div>
+        <div class="plan-billing">Forever free</div>
+        <button class="plan-cta ghost" onclick="window.location='https://app.chartlog.ai'">Get started</button>
+        <div class="plan-features">
+          <div class="plan-feat"><span class="check">✓</span><span>15 trades / month</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Dashboard & equity curve</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Trading plan</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Economic calendar</span></div>
+          <div class="plan-feat"><span class="cross">✗</span><span style="color:var(--muted)">AI Coach</span></div>
+          <div class="plan-feat"><span class="cross">✗</span><span style="color:var(--muted)">Advanced stats & heatmap</span></div>
+        </div>
+      </div>
+      <!-- TRADER -->
+      <div class="plan-card featured">
+        <div class="plan-popular">Most popular</div>
+        <div class="plan-name" style="color:var(--accent)">Trader</div>
+        <div class="plan-price" id="tprice">19€<span>/mo</span></div>
+        <div class="plan-billing" id="tbilling"> </div>
+        <button class="plan-cta primary" onclick="window.location='https://app.chartlog.ai'">Start Trader →</button>
+        <div class="plan-features">
+          <div class="plan-feat"><span class="check">✓</span><strong>Unlimited trades</strong></div>
+          <div class="plan-feat"><span class="check">✓</span><span>All stats, heatmap, progression</span></div>
+          <div class="plan-feat"><span class="check">✓</span><strong>AI Coach chat</strong></div>
+          <div class="plan-feat"><span class="check">✓</span><strong>50 AI analyses / month</strong></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Replay AI, Brief, Review</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Live news feed</span></div>
+          <div class="plan-feat"><span class="cross">✗</span><span style="color:var(--muted)">Multi-account</span></div>
+        </div>
+      </div>
+      <!-- PRO -->
+      <div class="plan-card">
+        <div class="plan-name" style="color:#c084fc">Pro</div>
+        <div class="plan-price" id="pprice">39€<span>/mo</span></div>
+        <div class="plan-billing" id="pbilling"> </div>
+        <button class="plan-cta pro" onclick="window.location='https://app.chartlog.ai'">Go Pro →</button>
+        <div class="plan-features">
+          <div class="plan-feat"><span class="check">✓</span><strong>Everything in Trader</strong></div>
+          <div class="plan-feat"><span class="check">✓</span><strong>Unlimited AI</strong></div>
+          <div class="plan-feat"><span class="check">✓</span><strong>Multi-account</strong></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Priority support</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Early access to new features</span></div>
+          <div class="plan-feat"><span style="color:#c084fc">✦</span><span style="color:#c084fc">Future features first</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPARE -->
+    <div class="compare-bar reveal">
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left">Feature</th>
+            <th class="us">Chartlog (Trader)</th>
+            <th>Edgewonk</th>
+            <th>TradeZella</th>
+            <th>TraderSync</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Monthly price</td><td class="us-val">€19/mo</td><td>€14/mo*</td><td>€24/mo</td><td>€30/mo</td></tr>
+          <tr><td>AI Coach chat</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
+          <tr><td>Trade Replay AI</td><td class="v">✓</td><td class="x">✗</td><td class="v">✓</td><td class="v">✓</td></tr>
+          <tr><td>Morning Brief AI</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
+          <tr><td>Economic calendar</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
+          <tr><td>Live news feed</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
+          <tr><td>All strategies supported</td><td class="v">✓</td><td class="v">✓</td><td class="v">✓</td><td class="v">✓</td></tr>
+        </tbody>
+      </table>
+      <div class="compare-note">* Edgewonk billed annually at €169/yr. No monthly plan available.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div style="max-width:700px;margin:0 auto">
+    <div class="section-label" id="faq-label">FAQ</div>
+    <h2 class="section-title" style="margin-bottom:48px" id="faq-title">Common <em>questions</em></h2>
+
+    <div style="display:flex;flex-direction:column;gap:0">
+      <div class="faq-item" style="border-bottom:1px solid var(--border);padding:20px 0">
+        <div onclick="toggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+          <span style="font-weight:700;font-size:15px" id="faq1-q">Does the AI really adapt to my strategy?</span>
+          <span class="faq-arrow" style="color:var(--accent);font-size:18px;transition:transform .2s">+</span>
+        </div>
+        <div class="faq-ans" style="display:none;padding-top:12px;font-size:14px;color:var(--soft);line-height:1.7" id="faq1-a">Yes. Every time you log a trade, you specify the indicator or strategy you used (Ichimoku, SMC, RSI, Price Action, etc.). The AI reads this and adapts its entire analysis to your approach.</div>
+      </div>
+      <div class="faq-item" style="border-bottom:1px solid var(--border);padding:20px 0">
+        <div onclick="toggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+          <span style="font-weight:700;font-size:15px" id="faq2-q">What markets and instruments are supported?</span>
+          <span class="faq-arrow" style="color:var(--accent);font-size:18px;transition:transform .2s">+</span>
+        </div>
+        <div class="faq-ans" style="display:none;padding-top:12px;font-size:14px;color:var(--soft);line-height:1.7" id="faq2-a">All of them. Indices (DAX, S&P500, Nasdaq, CAC40, FTSE...), individual stocks, Forex, Crypto, Commodities. If you can trade it, you can journal it.</div>
+      </div>
+      <div class="faq-item" style="border-bottom:1px solid var(--border);padding:20px 0">
+        <div onclick="toggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+          <span style="font-weight:700;font-size:15px" id="faq3-q">Is my data safe?</span>
+          <span class="faq-arrow" style="color:var(--accent);font-size:18px;transition:transform .2s">+</span>
+        </div>
+        <div class="faq-ans" style="display:none;padding-top:12px;font-size:14px;color:var(--soft);line-height:1.7" id="faq3-a">Your data is stored on Supabase with row-level security — only you can access your trades. We never share or sell your data. You can export everything in JSON at any time.</div>
+      </div>
+      <div class="faq-item" style="border-bottom:1px solid var(--border);padding:20px 0">
+        <div onclick="toggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+          <span style="font-weight:700;font-size:15px" id="faq4-q">Can I cancel anytime?</span>
+          <span class="faq-arrow" style="color:var(--accent);font-size:18px;transition:transform .2s">+</span>
+        </div>
+        <div class="faq-ans" style="display:none;padding-top:12px;font-size:14px;color:var(--soft);line-height:1.7" id="faq4-a">Yes, cancel anytime with one click. No questions asked. Your data stays accessible on the Free plan even after downgrading.</div>
+      </div>
+      <div class="faq-item" style="padding:20px 0">
+        <div onclick="toggleFaq(this)" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+          <span style="font-weight:700;font-size:15px" id="faq5-q">What AI powers the coach?</span>
+          <span class="faq-arrow" style="color:var(--accent);font-size:18px;transition:transform .2s">+</span>
+        </div>
+        <div class="faq-ans" style="display:none;padding-top:12px;font-size:14px;color:var(--soft);line-height:1.7" id="faq5-a">Chartlog uses Claude by Anthropic — one of the most capable AI models available today. The same technology used by Fortune 500 companies, adapted specifically for trading analysis and coaching.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div style="position:relative;z-index:1">
+    <h2 id="cta-h2">Your edge is in<br><em>the data you've ignored.</em></h2>
+    <p id="cta-sub">Start logging. Let the AI do the heavy lifting.</p>
+    <a href="https://app.chartlog.ai" class="btn-primary" style="font-size:16px;padding:16px 40px" id="cta-btn">Start free — no card needed</a>
+    <p style="margin-top:16px;font-size:13px;color:var(--muted)" id="cta-note">15 trades/month forever free · Upgrade when you're ready</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Chartlog</div>
+  <div class="footer-links">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="footer-copy" id="footer-copy">© 2025 Chartlog · The AI-powered trading journal</div>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(r => obs.observe(r));
+
+// Billing toggle
+function switchBilling(mode) {
+  const isAnnual = mode === 'annual';
+  document.getElementById('lbm').classList.toggle('active', !isAnnual);
+  document.getElementById('lba').classList.toggle('active', isAnnual);
+  document.getElementById('tprice').innerHTML = isAnnual ? '14€<span>/mo</span>' : '19€<span>/mo</span>';
+  document.getElementById('tbilling').textContent = isAnnual ? 'Billed €169/year' : ' ';
+  document.getElementById('pprice').innerHTML = isAnnual ? '29€<span>/mo</span>' : '39€<span>/mo</span>';
+  document.getElementById('pbilling').textContent = isAnnual ? 'Billed €349/year' : ' ';
+}
+
+// FAQ accordion
+function toggleFaq(el) {
+  const ans = el.nextElementSibling;
+  const arrow = el.querySelector('.faq-arrow');
+  const isOpen = ans.style.display !== 'none';
+  ans.style.display = isOpen ? 'none' : 'block';
+  arrow.textContent = isOpen ? '+' : '−';
+  arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(45deg)';
+}
+
+// ── i18n FR/EN ────────────────────────────────────────────────
+const LANGS = {
+  en: {
+    'nav.features': 'Features',
+    'nav.how': 'How it works',
+    'nav.pricing': 'Pricing',
+    'nav.cta': 'Start free →',
+    'hero.badge': 'The AI-powered trading journal',
+    'hero.h1': 'Log every trade.<br><em>Grow every session.</em>',
+    'hero.sub': 'The all-in-one trading journal that coaches you in real time. Track, analyze, and improve — whatever your strategy, whatever your market.',
+    'hero.btn1': 'Start for free →',
+    'hero.btn2': 'See how it works',
+    'hero.stat1.label': 'on paid plans',
+    'hero.stat2.label': 'per month · Trader plan',
+    'hero.stat3.label': 'Ichimoku, SMC, PA, RSI...',
+    'hero.stat4.label': 'less than most competitors',
+    'feat.label': 'Features',
+    'feat.title': 'Everything in <em>one place</em>',
+    'feat.sub': 'No more switching between spreadsheets, notes apps, and Discord groups. Chartlog replaces them all.',
+    'feat1.title': 'Smart Trade Journal',
+    'feat1.p': 'Log trades in seconds with AI-assisted capture from screenshots. Every entry, exit, emotion, and note — organized automatically.',
+    'feat2.title': 'AI Coach',
+    'feat2.p': 'Chat freely with your personal AI coach. Ask about any trade, any pattern, any strategy. It knows your entire history and adapts to your style.',
+    'feat3.title': 'Trade Replay',
+    'feat3.p': 'Each trade gets a detailed AI replay — entry analysis, risk management, exit quality — scored out of 10 with concrete improvement tips.',
+    'feat4.title': 'Morning Brief',
+    'feat4.p': 'Start every session with an AI-generated brief based on your last trades. Focus point, warning signals, one trading lesson. Every morning.',
+    'feat5.title': 'Performance Heatmap',
+    'feat5.p': 'Visualize exactly which days and hours you perform best. Stop trading at the wrong time. The data tells the truth.',
+    'feat6.title': 'Economic Calendar',
+    'feat6.p': 'Never get caught by a surprise announcement. The live economic calendar is embedded directly in the app.',
+    'how.label': 'How it works',
+    'how.title': 'Simple to start.<br><em>Powerful over time.</em>',
+    'how.sub': 'Chartlog gets smarter the more you trade. It builds a picture of your real edge — and helps you double down on what works.',
+    'how1.title': 'Log your trade — in under 60 seconds',
+    'how1.p': 'Paste a screenshot and our AI fills in the form automatically. You just confirm and add your notes.',
+    'how2.title': 'Get instant AI feedback on every trade',
+    'how2.p': 'The AI coach analyses your entry, risk management, and exit. It spots recurring mistakes before they become expensive habits.',
+    'how3.title': 'Track your real statistics — not just P&L',
+    'how3.p': 'Winrate by scenario, discipline score, R:R evolution, emotion impact, hourly heatmap. Numbers that tell you where your edge is.',
+    'how4.title': 'Refine your plan, stay in the zone',
+    'how4.p': 'Your trading plan lives in Chartlog. The morning brief keeps it top of mind. The evening review closes the loop.',
+    'testi.label': 'Traders say',
+    'testi.title': 'Built for traders,<br><em>by traders.</em>',
+    'testi1': '"The AI coach actually understands Ichimoku. I told it I use TK crosses on M1 and it analysed all my trades with that framework. Nothing else does this."',
+    'testi1.name': 'Marc T.', 'testi1.role': 'DAX scalper · 2 years',
+    'testi2': '"I switched from TradeZella. Chartlog is simpler to use, the AI chat is way better, and I save €15/month. The morning brief alone is worth it."',
+    'testi2.name': 'Sofia R.', 'testi2.role': 'S&P 500 · Swing trader',
+    'testi3': '"The heatmap showed me I lose 80% of my trades between 2pm and 3pm. I just stopped trading that window. Best decision I ever made."',
+    'testi3.name': 'Kevin D.', 'testi3.role': 'Forex trader · SMC strategy',
+    'pricing.label': 'Pricing',
+    'pricing.title': 'Start free.<br><em>Upgrade when ready.</em>',
+    'pricing.sub': 'No credit card required. Cancel anytime.',
+    'billing.monthly': 'Monthly',
+    'billing.annual': 'Annual',
+    'cta.h2': 'Your edge is in<br><em>the data you\'ve ignored.</em>',
+    'cta.sub': 'Start logging. Let the AI do the heavy lifting.',
+    'cta.btn': 'Start free — no card needed',
+    'cta.note': '15 trades/month forever free · Upgrade when you\'re ready',
+    'faq.label': 'FAQ',
+    'faq.title': 'Common <em>questions</em>',
+    'faq1.q': 'Does the AI really adapt to my strategy?',
+    'faq1.a': 'Yes. Every time you log a trade, you specify the indicator or strategy you used (Ichimoku, SMC, RSI, Price Action, etc.). The AI reads this and adapts its entire analysis to your approach.',
+    'faq2.q': 'What markets and instruments are supported?',
+    'faq2.a': 'All of them. Indices (DAX, S&P500, Nasdaq, CAC40, FTSE...), individual stocks, Forex, Crypto, Commodities. If you can trade it, you can journal it.',
+    'faq3.q': 'Is my data safe?',
+    'faq3.a': 'Your data is stored on Supabase with row-level security — only you can access your trades. We never share or sell your data. You can export everything in JSON at any time.',
+    'faq4.q': 'Can I cancel anytime?',
+    'faq4.a': 'Yes, cancel anytime with one click. No questions asked. Your data stays accessible on the Free plan even after downgrading.',
+    'faq5.q': 'What AI powers the coach?',
+    'faq5.a': 'Chartlog uses Claude by Anthropic — one of the most capable AI models available today. The same technology used by Fortune 500 companies, adapted for trading.',
+    'footer.copy': '© 2025 Chartlog · The AI-powered trading journal',
+  },
+  fr: {
+    'nav.features': 'Fonctionnalités',
+    'nav.how': 'Comment ça marche',
+    'nav.pricing': 'Tarifs',
+    'nav.cta': 'Commencer gratuitement →',
+    'hero.badge': 'Le journal de trading propulsé par l\'IA',
+    'hero.h1': 'Logge chaque trade.<br><em>Progresse chaque session.</em>',
+    'hero.sub': 'Le journal de trading tout-en-un qui te coache en temps réel. Analyse, progresse — quelle que soit ta stratégie, quel que soit ton marché.',
+    'hero.btn1': 'Commencer gratuitement →',
+    'hero.btn2': 'Voir comment ça marche',
+    'hero.stat1.label': 'sur les plans payants',
+    'hero.stat2.label': 'par mois · Plan Trader',
+    'hero.stat3.label': 'Ichimoku, SMC, PA, RSI...',
+    'hero.stat4.label': 'moins cher que la concurrence',
+    'feat.label': 'Fonctionnalités',
+    'feat.title': 'Tout en <em>un seul endroit</em>',
+    'feat.sub': 'Fini les allers-retours entre tableurs, notes et groupes Discord. Chartlog remplace tout ça.',
+    'feat1.title': 'Journal de trading intelligent',
+    'feat1.p': 'Loggue tes trades en quelques secondes avec la capture IA depuis tes screenshots. Entrée, sortie, émotion, notes — organisés automatiquement.',
+    'feat2.title': 'Coach IA',
+    'feat2.p': 'Discute librement avec ton coach IA personnel. Pose des questions sur n\'importe quel trade, pattern ou stratégie. Il connaît tout ton historique.',
+    'feat3.title': 'Replay IA',
+    'feat3.p': 'Chaque trade reçoit un replay IA détaillé — analyse de l\'entrée, gestion du risque, qualité de la sortie — noté sur 10 avec des conseils concrets.',
+    'feat4.title': 'Brief Matinal',
+    'feat4.p': 'Commence chaque session avec un brief IA basé sur tes derniers trades. Point de focus, signaux de vigilance, une leçon de trading. Chaque matin.',
+    'feat5.title': 'Heatmap de Performance',
+    'feat5.p': 'Visualise exactement quels jours et créneaux tu performes le mieux. Arrête de trader au mauvais moment. Les données ne mentent pas.',
+    'feat6.title': 'Calendrier Économique',
+    'feat6.p': 'Ne te fais plus surprendre par une annonce. Le calendrier économique live est intégré directement dans l\'app.',
+    'how.label': 'Comment ça marche',
+    'how.title': 'Simple à démarrer.<br><em>Puissant sur le long terme.</em>',
+    'how.sub': 'Chartlog devient plus intelligent à chaque trade loggé. Il construit une image précise de ton edge réel — et t\'aide à doubler dessus.',
+    'how1.title': 'Logge ton trade — en moins de 60 secondes',
+    'how1.p': 'Colle un screenshot et l\'IA remplit le formulaire automatiquement. Tu confirmes et ajoutes tes notes.',
+    'how2.title': 'Reçois un feedback IA instantané sur chaque trade',
+    'how2.p': 'Le coach IA analyse ton entrée, ta gestion du risque et ta sortie. Il détecte tes erreurs récurrentes avant qu\'elles ne coûtent cher.',
+    'how3.title': 'Suis tes vraies statistiques — pas seulement le P&L',
+    'how3.p': 'Winrate par scénario, score de discipline, évolution R:R, impact des émotions, heatmap horaire. Des chiffres qui te disent où est ton edge.',
+    'how4.title': 'Affine ton plan, reste dans ta zone',
+    'how4.p': 'Ton plan de trading vit dans Chartlog. Le brief matinal te le rappelle. La revue du soir boucle la boucle. Le progrès devient un système.',
+    'testi.label': 'Les traders disent',
+    'testi.title': 'Conçu par des traders,<br><em>pour les traders.</em>',
+    'testi1': '"Le coach IA comprend vraiment Ichimoku. Je lui ai dit que j\'utilise les TK cross sur M1 et il a analysé tous mes trades avec ce cadre. Rien d\'autre ne fait ça."',
+    'testi1.name': 'Marc T.', 'testi1.role': 'Scalper DAX · 2 ans',
+    'testi2': '"J\'ai switché de TradeZella. Chartlog est plus simple, le chat IA est bien meilleur, et j\'économise 15€/mois. Le brief matinal à lui seul vaut le coup."',
+    'testi2.name': 'Sofia R.', 'testi2.role': 'S&P 500 · Swing trader',
+    'testi3': '"La heatmap m\'a montré que je perds 80% de mes trades entre 14h et 15h. J\'ai juste arrêté de trader ce créneau. Meilleure décision que j\'ai prise."',
+    'testi3.name': 'Kevin D.', 'testi3.role': 'Trader Forex · Stratégie SMC',
+    'pricing.label': 'Tarifs',
+    'pricing.title': 'Commence gratuitement.<br><em>Upgrade quand tu es prêt.</em>',
+    'pricing.sub': 'Sans carte bancaire. Annulable à tout moment.',
+    'billing.monthly': 'Mensuel',
+    'billing.annual': 'Annuel',
+    'cta.h2': 'Ton edge est dans<br><em>les données que tu ignores.</em>',
+    'cta.sub': 'Commence à logger. Laisse l\'IA faire le reste.',
+    'cta.btn': 'Commencer gratuitement — sans CB',
+    'cta.note': '15 trades/mois pour toujours gratuit · Upgrade quand tu es prêt',
+    'faq.label': 'FAQ',
+    'faq.title': 'Questions <em>fréquentes</em>',
+    'faq1.q': 'L\'IA s\'adapte vraiment à ma stratégie ?',
+    'faq1.a': 'Oui. À chaque trade loggé, tu précises l\'indicateur ou la stratégie utilisée (Ichimoku, SMC, RSI, Price Action, etc.). L\'IA lit cela et adapte toute son analyse à ton approche.',
+    'faq2.q': 'Quels marchés et instruments sont supportés ?',
+    'faq2.a': 'Tous. Indices (DAX, S&P500, Nasdaq, CAC40, FTSE...), actions individuelles, Forex, Crypto, Matières premières. Si tu peux le trader, tu peux le journaliser.',
+    'faq3.q': 'Mes données sont-elles sécurisées ?',
+    'faq3.a': 'Tes données sont stockées sur Supabase avec une sécurité par ligne — seul toi peux accéder à tes trades. Nous ne partageons ni ne vendons jamais tes données.',
+    'faq4.q': 'Je peux annuler à tout moment ?',
+    'faq4.a': 'Oui, annulation en un clic. Sans question. Tes données restent accessibles sur le plan Free même après le downgrade.',
+    'faq5.q': 'Quelle IA propulse le coach ?',
+    'faq5.a': 'Chartlog utilise Claude d\'Anthropic — l\'un des modèles IA les plus performants au monde. La même technologie utilisée par les grandes entreprises, adaptée au trading.',
+    'footer.copy': '© 2025 Chartlog · Le journal de trading propulsé par l\'IA',
+  }
+};
+
+let currentLang = 'en';
+
+function switchLang() {
+  currentLang = currentLang === 'en' ? 'fr' : 'en';
+  document.getElementById('langBtn').textContent = currentLang === 'en' ? '🌐 FR' : '🌐 EN';
+  applyLang();
+}
+
+function applyLang() {
+  const t = LANGS[currentLang];
+  // Nav
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (t[key]) el.innerHTML = t[key];
+  });
+  // Hero
+  setHTML('hero-badge', t['hero.badge']);
+  setHTML('hero-h1', t['hero.h1']);
+  setHTML('hero-sub', t['hero.sub']);
+  setHTML('hero-btn1', t['hero.btn1']);
+  setHTML('hero-btn2', t['hero.btn2']);
+  setHTML('hero-stat1-label', t['hero.stat1.label']);
+  setHTML('hero-stat2-label', t['hero.stat2.label']);
+  setHTML('hero-stat3-label', t['hero.stat3.label']);
+  setHTML('hero-stat4-label', t['hero.stat4.label']);
+  // Features
+  setHTML('feat-label', t['feat.label']);
+  setHTML('feat-title', t['feat.title']);
+  setHTML('feat-sub', t['feat.sub']);
+  for (let i = 1; i <= 6; i++) {
+    setHTML(`feat${i}-title`, t[`feat${i}.title`]);
+    setHTML(`feat${i}-p`, t[`feat${i}.p`]);
+  }
+  // How
+  setHTML('how-label', t['how.label']);
+  setHTML('how-title', t['how.title']);
+  setHTML('how-sub', t['how.sub']);
+  for (let i = 1; i <= 4; i++) {
+    setHTML(`how${i}-title`, t[`how${i}.title`]);
+    setHTML(`how${i}-p`, t[`how${i}.p`]);
+  }
+  // Testimonials
+  setHTML('testi-label', t['testi.label']);
+  setHTML('testi-title', t['testi.title']);
+  for (let i = 1; i <= 3; i++) {
+    setHTML(`testi${i}`, t[`testi${i}`]);
+    setHTML(`testi${i}-name`, t[`testi${i}.name`]);
+    setHTML(`testi${i}-role`, t[`testi${i}.role`]);
+  }
+  // Pricing
+  setHTML('pricing-label', t['pricing.label']);
+  setHTML('pricing-title', t['pricing.title']);
+  setHTML('pricing-sub', t['pricing.sub']);
+  setHTML('billing-monthly', t['billing.monthly']);
+  setHTML('billing-annual-text', t['billing.annual']);
+  // CTA
+  setHTML('cta-h2', t['cta.h2']);
+  setHTML('cta-sub', t['cta.sub']);
+  setHTML('cta-btn', t['cta.btn']);
+  setHTML('cta-note', t['cta.note']);
+  // FAQ
+  setHTML('faq-label', t['faq.label']);
+  setHTML('faq-title', t['faq.title']);
+  for (let i = 1; i <= 5; i++) {
+    setHTML(`faq${i}-q`, t[`faq${i}.q`]);
+    setHTML(`faq${i}-a`, t[`faq${i}.a`]);
+  }
+  // Footer
+  setHTML('footer-copy', t['footer.copy']);
+  // HTML lang attribute
+  document.documentElement.lang = currentLang;
+}
+
+function setHTML(id, val) {
+  const el = document.getElementById(id);
+  if (el && val) el.innerHTML = val;
+}
+
+// Smooth nav on scroll
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.background = window.scrollY > 20 ? 'rgba(5,8,16,.95)' : 'rgba(5,8,16,.8)';
+});
+</script>
+</body>
+</html>
