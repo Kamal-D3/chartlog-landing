@@ -1095,7 +1095,7 @@ footer {
 
     <div class="billing-toggle">
       <button class="billing-btn active" id="lbm" onclick="switchBilling('monthly')"><span id="billing-monthly">Monthly</span></button>
-      <button class="billing-btn" id="lba" onclick="switchBilling('annual')"><span id="billing-annual-text">Annual</span> <span class="save-badge">Save 25%</span></button>
+      <button class="billing-btn" id="lba" onclick="switchBilling('annual')"><span id="billing-annual-text">Annual</span> <span class="save-badge">Save 35%</span></button>
     </div>
 
     <div class="plans-grid reveal">
@@ -1237,8 +1237,8 @@ footer {
   <div class="footer-links">
     <a href="#features">Features</a>
     <a href="#pricing">Pricing</a>
-    <a href="#">Privacy Policy</a>
-    <a href="#">Terms of Service</a>
+    <a href="https://app.chartlog.ai/pages/privacy.html">Privacy Policy</a>
+    <a href="https://app.chartlog.ai/pages/cgu.html">Terms of Service</a>
     <a href="#">Contact</a>
   </div>
   <div class="footer-copy" id="footer-copy">© 2025 Chartlog · The AI-powered trading journal</div>
@@ -1257,10 +1257,10 @@ function switchBilling(mode) {
   const isAnnual = mode === 'annual';
   document.getElementById('lbm').classList.toggle('active', !isAnnual);
   document.getElementById('lba').classList.toggle('active', isAnnual);
-  document.getElementById('tprice').innerHTML = isAnnual ? '14€<span>/mo</span>' : '19€<span>/mo</span>';
-  document.getElementById('tbilling').textContent = isAnnual ? 'Billed €169/year' : ' ';
-  document.getElementById('pprice').innerHTML = isAnnual ? '29€<span>/mo</span>' : '39€<span>/mo</span>';
-  document.getElementById('pbilling').textContent = isAnnual ? 'Billed €349/year' : ' ';
+  document.getElementById('tprice').innerHTML = isAnnual ? '12€<span>/mo</span>' : '19€<span>/mo</span>';
+  document.getElementById('tbilling').textContent = isAnnual ? 'Billed €148/year' : ' ';
+  document.getElementById('pprice').innerHTML = isAnnual ? '25€<span>/mo</span>' : '39€<span>/mo</span>';
+  document.getElementById('pbilling').textContent = isAnnual ? 'Billed €304/year' : ' ';
 }
 
 // FAQ accordion
