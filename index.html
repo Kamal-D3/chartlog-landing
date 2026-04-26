@@ -241,6 +241,35 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.visible { opacity: 1; transform: none; }
 
+/* HERO ORBS */
+.hero-orb { position: absolute; border-radius: 50%; pointer-events: none; }
+.hero-orb:nth-child(1) { width: 640px; height: 640px; background: radial-gradient(circle, rgba(0,212,255,.07) 0%, transparent 65%); top: -160px; left: -120px; animation: orbFloat1 13s ease-in-out infinite; }
+.hero-orb:nth-child(2) { width: 500px; height: 500px; background: radial-gradient(circle, rgba(168,85,247,.08) 0%, transparent 65%); top: 5%; right: -100px; animation: orbFloat2 10s ease-in-out infinite; }
+.hero-orb:nth-child(3) { width: 380px; height: 380px; background: radial-gradient(circle, rgba(59,130,246,.06) 0%, transparent 65%); bottom: 0; left: 10%; animation: orbFloat3 16s ease-in-out infinite; }
+@keyframes orbFloat1 { 0%,100%{transform:translate(0,0)} 33%{transform:translate(40px,-35px)} 66%{transform:translate(-25px,20px)} }
+@keyframes orbFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-35px,28px)} }
+@keyframes orbFloat3 { 0%,100%{transform:translate(0,0)} 40%{transform:translate(22px,-18px)} 80%{transform:translate(-18px,12px)} }
+
+/* TICKER */
+.ticker-bar { overflow: hidden; padding: 9px 0; background: rgba(5,8,16,.92); border-bottom: 1px solid rgba(0,212,255,.08); position: relative; z-index: 99; }
+.ticker-track { display: flex; animation: tickerScroll 38s linear infinite; }
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-item { display: inline-flex; align-items: center; gap: 7px; padding: 0 26px; font-size: 11px; font-weight: 600; font-family: var(--mono); color: var(--muted); white-space: nowrap; border-right: 1px solid rgba(255,255,255,.04); }
+.ticker-item .up { color: var(--green); }
+.ticker-item .dn { color: #ff4d6a; }
+@keyframes tickerScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* STAGGER REVEAL */
+.reveal-stagger > * { opacity: 0; transform: translateY(26px); transition: opacity .58s ease, transform .58s ease; }
+
+/* FEATURED PLAN PULSE */
+@keyframes planPulse { 0%,100%{box-shadow:0 0 40px rgba(0,212,255,.06),0 0 0 1px rgba(0,212,255,.12)} 50%{box-shadow:0 0 65px rgba(0,212,255,.15),0 0 0 1px rgba(0,212,255,.28)} }
+.plan-card.featured { animation: planPulse 3.5s ease-in-out infinite; }
+
+/* FKPI HOVER */
+.fkpi { transition: filter .2s ease, box-shadow .2s ease; }
+.fkpi:hover { filter: brightness(1.25); box-shadow: 0 10px 30px rgba(0,0,0,.45); }
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .features-grid, .plans-grid, .testimonials-grid, .ref-steps, .ba-wrap { grid-template-columns: 1fr; }
@@ -287,15 +316,44 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </ul>
 </nav>
 
+<!-- TICKER BAR -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <div class="ticker-item">FDAX <span class="up">▲ 18,204.5 +0.34%</span></div>
+    <div class="ticker-item">S&P 500 <span class="up">▲ 5,487.2 +0.18%</span></div>
+    <div class="ticker-item">NASDAQ <span class="dn">▼ 19,234.1 −0.12%</span></div>
+    <div class="ticker-item">EUR/USD <span class="up">▲ 1.0834 +0.05%</span></div>
+    <div class="ticker-item">BTC/USD <span class="up">▲ 67,420 +1.24%</span></div>
+    <div class="ticker-item">CAC 40 <span class="dn">▼ 7,856.3 −0.22%</span></div>
+    <div class="ticker-item">Gold <span class="up">▲ 2,318.5 +0.41%</span></div>
+    <div class="ticker-item">Crude Oil <span class="dn">▼ 78.42 −0.08%</span></div>
+    <div class="ticker-item">NQ100 <span class="up">▲ 19,890.0 +0.31%</span></div>
+    <div class="ticker-item">DAX <span class="up">▲ 18,120.4 +0.19%</span></div>
+    <div class="ticker-item">FDAX <span class="up">▲ 18,204.5 +0.34%</span></div>
+    <div class="ticker-item">S&P 500 <span class="up">▲ 5,487.2 +0.18%</span></div>
+    <div class="ticker-item">NASDAQ <span class="dn">▼ 19,234.1 −0.12%</span></div>
+    <div class="ticker-item">EUR/USD <span class="up">▲ 1.0834 +0.05%</span></div>
+    <div class="ticker-item">BTC/USD <span class="up">▲ 67,420 +1.24%</span></div>
+    <div class="ticker-item">CAC 40 <span class="dn">▼ 7,856.3 −0.22%</span></div>
+    <div class="ticker-item">Gold <span class="up">▲ 2,318.5 +0.41%</span></div>
+    <div class="ticker-item">Crude Oil <span class="dn">▼ 78.42 −0.08%</span></div>
+    <div class="ticker-item">NQ100 <span class="up">▲ 19,890.0 +0.31%</span></div>
+    <div class="ticker-item">DAX <span class="up">▲ 18,120.4 +0.19%</span></div>
+  </div>
+</div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-orb"></div>
   <div class="floating-kpis">
-    <div class="fkpi">+67.4% WR</div>
-    <div class="fkpi">8.2/10 Discipline</div>
-    <div class="fkpi">+4,280€ P&L</div>
-    <div class="fkpi">2.34 R:R avg</div>
+    <div class="fkpi" data-val="67.4" data-decimals="1" data-prefix="+" data-suffix="% WR">+67.4% WR</div>
+    <div class="fkpi" data-val="8.2" data-decimals="1" data-suffix="/10 Discipline">8.2/10 Discipline</div>
+    <div class="fkpi" data-val="4280" data-decimals="0" data-prefix="+" data-suffix="€ P&L">+4,280€ P&L</div>
+    <div class="fkpi" data-val="2.34" data-decimals="2" data-suffix=" R:R avg">2.34 R:R avg</div>
   </div>
   <div class="hero-content">
     <div class="hero-badge" id="hero-badge">The AI-powered trading journal</div>
@@ -329,7 +387,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
 <!-- COMPATIBLE BAR -->
 <div class="compat-bar">
   <div class="compat-inner">
-    <span class="compat-label">Compatible with</span>
+    <span class="compat-label" id="compat-label">Compatible with</span>
     <div style="overflow:hidden;flex:1">
       <div class="compat-track">
         <div class="compat-item"><div class="compat-icon" style="background:rgba(0,212,255,.08)">📊</div>ProRealTime</div>
@@ -486,14 +544,14 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   <div style="max-width:1100px;margin:0 auto">
     <div class="section-label" id="feat-label">Features</div>
     <h2 class="section-title" id="feat-title">Everything in <em>one place</em></h2>
-    <p class="section-sub" id="feat-sub">No more switching between spreadsheets, notes apps, and Discord groups. Chartlog replaces them all.</p>
-    <div class="features-grid reveal">
+    <p class="section-sub" id="feat-sub">No more spreadsheets. No more switching tabs. Chartlog is the last trading tool you'll need.</p>
+    <div class="features-grid reveal-stagger">
       <div class="feat-card" data-glow="cyan"><div class="feat-icon" style="background:rgba(0,212,255,.08)">📊</div><h3 id="feat1-title">Smart Trade Journal</h3><p id="feat1-p">Log trades in seconds with AI-assisted capture from screenshots. Every entry, exit, emotion, and note — organized automatically.</p><span class="feat-tag" style="background:rgba(0,212,255,.08);color:var(--accent)">Core</span></div>
       <div class="feat-card" data-glow="purple"><div class="feat-icon" style="background:rgba(168,85,247,.08)">🧠</div><h3 id="feat2-title">AI Coach</h3><p id="feat2-p">Chat freely with your personal AI coach. Ask about any trade, any pattern, any strategy. It knows your entire history and adapts to your style.</p><span class="feat-tag" style="background:rgba(168,85,247,.1);color:#c084fc">AI</span></div>
       <div class="feat-card" data-glow="green"><div class="feat-icon" style="background:rgba(0,230,138,.08)">🎬</div><h3 id="feat3-title">Trade Replay</h3><p id="feat3-p">Each trade gets a detailed AI replay — entry analysis, risk management, exit quality — scored out of 10 with concrete improvement tips.</p><span class="feat-tag" style="background:rgba(0,230,138,.08);color:var(--green)">AI</span></div>
       <div class="feat-card" data-glow="yellow"><div class="feat-icon" style="background:rgba(245,158,11,.08)">☀️</div><h3 id="feat4-title">Morning Brief</h3><p id="feat4-p">Start every session with an AI-generated brief based on your last trades. Focus point, warning signals, one trading lesson. Every morning.</p><span class="feat-tag" style="background:rgba(245,158,11,.08);color:var(--warn)">AI</span></div>
-      <div class="feat-card" data-glow="blue"><div class="feat-icon" style="background:rgba(59,130,246,.08)">🔥</div><h3 id="feat5-title">Performance Heatmap</h3><p id="feat5-p">Visualize exactly which days and hours you perform best. Stop trading at the wrong time. The data tells the truth — patterns don't lie.</p><span class="feat-tag" style="background:rgba(59,130,246,.08);color:var(--accent2)">Analytics</span></div>
-      <div class="feat-card" data-glow="red"><div class="feat-icon" style="background:rgba(239,68,68,.08)">📅</div><h3 id="feat6-title">Economic Calendar</h3><p id="feat6-p">Never get caught by a surprise announcement. The live economic calendar is embedded directly in the app — no more switching tabs.</p><span class="feat-tag" style="background:rgba(239,68,68,.08);color:#f87171">Live</span></div>
+      <div class="feat-card" data-glow="blue"><div class="feat-icon" style="background:rgba(59,130,246,.08)">🔥</div><h3 id="feat5-title">Performance Heatmap</h3><p id="feat5-p">Visualize exactly which days and hours you perform best. Stop trading at the wrong time. The data tells the truth.</p><span class="feat-tag" style="background:rgba(59,130,246,.08);color:var(--accent2)">Analytics</span></div>
+      <div class="feat-card" data-glow="red"><div class="feat-icon" style="background:rgba(239,68,68,.08)">📅</div><h3 id="feat6-title">Economic Calendar</h3><p id="feat6-p">Never get caught by a surprise announcement. The live economic calendar is embedded directly in the app.</p><span class="feat-tag" style="background:rgba(239,68,68,.08);color:#f87171">Live</span></div>
     </div>
   </div>
 </section>
@@ -547,10 +605,10 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   <div style="max-width:1100px;margin:0 auto">
     <div class="section-label" id="testi-label">Traders say</div>
     <h2 class="section-title" id="testi-title">Built for traders,<br><em>by traders.</em></h2>
-    <div class="testimonials-grid reveal">
+    <div class="testimonials-grid reveal-stagger">
       <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text" id="testi1">"The AI coach actually understands Ichimoku. I told it I use TK crosses on M1 and it analysed all my trades with that framework. Nothing else does this."</p><div class="testi-author"><div class="testi-avatar" style="background:rgba(0,212,255,.12);color:var(--accent)">M</div><div><div class="testi-name" id="testi1-name">Marc T.</div><div class="testi-role" id="testi1-role">DAX scalper · 2 years</div></div></div></div>
       <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text" id="testi2">"I switched from TradeZella. Chartlog is simpler to use, the AI chat is way better, and I save €15/month. The morning brief alone is worth it."</p><div class="testi-author"><div class="testi-avatar" style="background:rgba(0,230,138,.12);color:var(--green)">S</div><div><div class="testi-name" id="testi2-name">Sofia R.</div><div class="testi-role" id="testi2-role">S&P 500 · Swing trader</div></div></div></div>
-      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text" id="testi3">"The heatmap showed me I lose 80% of my trades between 2pm and 3pm. I just stopped trading that window. Best decision I ever made — cost me €19."</p><div class="testi-author"><div class="testi-avatar" style="background:rgba(168,85,247,.12);color:var(--purple)">K</div><div><div class="testi-name" id="testi3-name">Kevin D.</div><div class="testi-role" id="testi3-role">Forex trader · SMC strategy</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text" id="testi3">"The heatmap showed me I lose 80% of my trades between 2pm and 3pm. I just stopped trading that window. Best decision I ever made."</p><div class="testi-author"><div class="testi-avatar" style="background:rgba(168,85,247,.12);color:var(--purple)">K</div><div><div class="testi-name" id="testi3-name">Kevin D.</div><div class="testi-role" id="testi3-role">Forex trader · SMC strategy</div></div></div></div>
     </div>
   </div>
 </section>
@@ -565,25 +623,25 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
       <button class="billing-btn active" id="lbm" onclick="switchBilling('monthly')"><span id="billing-monthly">Monthly</span></button>
       <button class="billing-btn" id="lba" onclick="switchBilling('annual')"><span id="billing-annual-text">Annual</span> <span class="save-badge">Save 35%</span></button>
     </div>
-    <div class="plans-grid reveal">
+    <div class="plans-grid reveal-stagger">
       <div class="plan-card"><div class="plan-name" style="color:var(--muted)">Free</div><div class="plan-price">0€</div><div class="plan-billing">Forever free</div><button class="plan-cta ghost" onclick="window.location='https://app.chartlog.ai'">Get started</button><div class="plan-features"><div class="plan-feat"><span class="check">✓</span><span>15 trades / month</span></div><div class="plan-feat"><span class="check">✓</span><span>Dashboard & equity curve</span></div><div class="plan-feat"><span class="check">✓</span><span>Trading plan</span></div><div class="plan-feat"><span class="check">✓</span><span>Economic calendar</span></div><div class="plan-feat"><span class="cross">✗</span><span style="color:var(--muted)">AI Coach</span></div><div class="plan-feat"><span class="cross">✗</span><span style="color:var(--muted)">Advanced stats & heatmap</span></div></div></div>
       <div class="plan-card featured"><div class="plan-popular">Most popular</div><div class="plan-name" style="color:var(--accent)">Trader</div><div class="plan-price" id="tprice">19€<span>/mo</span></div><div class="plan-billing" id="tbilling"> </div><button class="plan-cta primary" onclick="window.location='https://app.chartlog.ai'">Start Trader →</button><div class="plan-features"><div class="plan-feat"><span class="check">✓</span><strong>Unlimited trades</strong></div><div class="plan-feat"><span class="check">✓</span><span>All stats, heatmap, progression</span></div><div class="plan-feat"><span class="check">✓</span><strong>AI Coach chat</strong></div><div class="plan-feat"><span class="check">✓</span><strong>50 AI analyses / month</strong></div><div class="plan-feat"><span class="check">✓</span><span>Replay AI, Brief, Review</span></div><div class="plan-feat"><span class="check">✓</span><span>Live news feed</span></div><div class="plan-feat"><span class="cross">✗</span><span style="color:var(--muted)">Multi-account</span></div></div></div>
       <div class="plan-card"><div class="plan-name" style="color:#c084fc">Pro</div><div class="plan-price" id="pprice">39€<span>/mo</span></div><div class="plan-billing" id="pbilling"> </div><button class="plan-cta pro" onclick="window.location='https://app.chartlog.ai'">Go Pro →</button><div class="plan-features"><div class="plan-feat"><span class="check">✓</span><strong>Everything in Trader</strong></div><div class="plan-feat"><span class="check">✓</span><strong>Unlimited AI</strong></div><div class="plan-feat"><span class="check">✓</span><strong>Multi-account</strong></div><div class="plan-feat"><span class="check">✓</span><span>Priority support</span></div><div class="plan-feat"><span class="check">✓</span><span>Early access to new features</span></div><div class="plan-feat"><span style="color:#c084fc">✦</span><span style="color:#c084fc">Future features first</span></div></div></div>
     </div>
     <div class="compare-bar reveal">
       <table>
-        <thead><tr><th style="text-align:left">Feature</th><th class="us">Chartlog (Trader)</th><th>Edgewonk</th><th>TradeZella</th><th>TraderSync</th></tr></thead>
+        <thead><tr><th style="text-align:left" id="cmp-feat">Feature</th><th class="us">Chartlog (Trader)</th><th>Edgewonk</th><th>TradeZella</th><th>TraderSync</th></tr></thead>
         <tbody>
-          <tr><td>Monthly price</td><td class="us-val">€19/mo</td><td>€14/mo*</td><td>€24/mo</td><td>€30/mo</td></tr>
-          <tr><td>AI Coach chat</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
-          <tr><td>Trade Replay AI</td><td class="v">✓</td><td class="x">✗</td><td class="v">✓</td><td class="v">✓</td></tr>
-          <tr><td>Morning Brief AI</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
-          <tr><td>Economic calendar</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
-          <tr><td>Live news feed</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
-          <tr><td>Referral program</td><td class="v">✓</td><td class="x">✗</td><td class="v">✓</td><td class="v">✓</td></tr>
+          <tr><td id="cmp-price">Monthly price</td><td class="us-val">€19/mo</td><td>€14/mo*</td><td>€24/mo</td><td>€30/mo</td></tr>
+          <tr><td id="cmp-coach">AI Coach chat</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
+          <tr><td id="cmp-replay">Trade Replay AI</td><td class="v">✓</td><td class="x">✗</td><td class="v">✓</td><td class="v">✓</td></tr>
+          <tr><td id="cmp-brief">Morning Brief AI</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
+          <tr><td id="cmp-cal">Economic calendar</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
+          <tr><td id="cmp-news">Live news feed</td><td class="v">✓</td><td class="x">✗</td><td class="x">✗</td><td class="x">✗</td></tr>
+          <tr><td id="cmp-ref">Referral program</td><td class="v">✓</td><td class="x">✗</td><td class="v">✓</td><td class="v">✓</td></tr>
         </tbody>
       </table>
-      <div class="compare-note">* Edgewonk billed annually at €169/yr. No monthly plan available.</div>
+      <div class="compare-note" id="cmp-note">* Edgewonk billed annually at €169/yr. No monthly plan available.</div>
     </div>
   </div>
 </section>
@@ -609,7 +667,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
     <div class="section-label" id="ref-label">Referral Program</div>
     <h2 class="section-title" id="ref-title">Invite a trader.<br><em>You both win.</em></h2>
     <p class="section-sub" style="margin:0 auto 48px" id="ref-sub">Share Chartlog with a fellow trader. You get <strong style="color:var(--accent)">-20%</strong> on your subscription, they get <strong style="color:var(--green)">-10%</strong> on theirs. Forever.</p>
-    <div class="ref-steps reveal">
+    <div class="ref-steps reveal-stagger">
       <div class="ref-step">
         <div class="ref-step-icon">🔗</div>
         <div class="ref-step-title" id="ref-step1-title">Get your link</div>
@@ -650,9 +708,9 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
 <footer>
   <div class="footer-logo">Chartlog</div>
   <div class="footer-links">
-    <a href="#features">Features</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#referral">Referral</a>
+    <a href="#features" id="footer-feat">Features</a>
+    <a href="#pricing" id="footer-pricing">Pricing</a>
+    <a href="#referral" id="footer-ref">Referral</a>
     <a href="https://app.chartlog.ai/pages/privacy.html">Privacy Policy</a>
     <a href="https://app.chartlog.ai/pages/cgu.html">Terms of Service</a>
     <a href="mailto:support@chartlog.ai">Contact</a>
@@ -668,23 +726,57 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 reveals.forEach(r => obs.observe(r));
 
+// Stagger reveal for grid containers
+const staggerObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      Array.from(e.target.children).forEach((child, i) => {
+        setTimeout(() => { child.style.opacity = '1'; child.style.transform = 'none'; }, i * 100);
+      });
+      staggerObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal-stagger').forEach(el => staggerObs.observe(el));
+
 // ── TYPING EFFECT ─────────────────────────────────────────────
-const texts = {
-  en: 'The all-in-one trading journal that coaches you in real time. Track, analyze, and improve — whatever your strategy, whatever your market.',
-  fr: "Un seul outil pour suivre tes trades, comprendre tes erreurs et progresser avec un coach IA adapté à ta stratégie."
+const heroLines = {
+  en: [
+    'The all-in-one trading journal that coaches you in real time.',
+    'Track your edge. Eliminate your leaks. Grow with every trade.',
+    'AI that knows your strategy — feedback that actually makes a difference.',
+  ],
+  fr: [
+    'Un seul outil pour suivre tes trades et progresser avec un coach IA.',
+    'Trouve ton edge. Élimine tes erreurs. Progresse à chaque trade.',
+    "Une IA qui comprend ta stratégie et un retour qui change vraiment la donne.",
+  ]
 };
-let typingTimeout;
+let typingTimeout, heroCycleTimer, heroLineIdx = 0;
+
 function typeText(text, el) {
   clearTimeout(typingTimeout);
   el.textContent = '';
   let i = 0;
   function type() {
-    if (i < text.length) {
-      el.textContent += text[i++];
-      typingTimeout = setTimeout(type, 18);
-    }
+    if (i < text.length) { el.textContent += text[i++]; typingTimeout = setTimeout(type, 22); }
   }
   type();
+}
+
+function startHeroCycle(lang) {
+  clearTimeout(heroCycleTimer);
+  heroLineIdx = 0;
+  const lines = heroLines[lang] || heroLines.en;
+  const el = document.getElementById('hero-sub');
+  if (!el) return;
+  function cycle() {
+    const line = lines[heroLineIdx % lines.length];
+    typeText(line, el);
+    heroLineIdx++;
+    heroCycleTimer = setTimeout(cycle, line.length * 22 + 3400);
+  }
+  cycle();
 }
 
 // ── COUNT UP ANIMATION ────────────────────────────────────────
@@ -702,8 +794,25 @@ function initCounters() {
   const stat2 = document.getElementById('stat2');
   if (stat2 && stat2.textContent === '0') countUp(stat2, 50);
 }
+function animateFkpis() {
+  document.querySelectorAll('.fkpi[data-val]').forEach(el => {
+    const val = parseFloat(el.dataset.val);
+    const dec = parseInt(el.dataset.decimals || 0);
+    const pre = el.dataset.prefix || '';
+    const suf = el.dataset.suffix || '';
+    const t0 = performance.now(), dur = 1400;
+    function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      const v = val * e;
+      el.textContent = pre + (dec > 0 ? v.toFixed(dec) : Math.round(v).toLocaleString()) + suf;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}
 const heroObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) { initCounters(); heroObs.disconnect(); } });
+  entries.forEach(e => { if(e.isIntersecting) { initCounters(); animateFkpis(); heroObs.disconnect(); } });
 }, { threshold: 0.3 });
 const heroEl = document.querySelector('.hero');
 if (heroEl) heroObs.observe(heroEl);
@@ -735,12 +844,13 @@ startAutoRotate();
 // ── BILLING TOGGLE ────────────────────────────────────────────
 function switchBilling(mode) {
   const isAnnual = mode === 'annual';
+  const t = LANGS[currentLang];
   document.getElementById('lbm').classList.toggle('active', !isAnnual);
   document.getElementById('lba').classList.toggle('active', isAnnual);
   document.getElementById('tprice').innerHTML = isAnnual ? '12€<span>/mo</span>' : '19€<span>/mo</span>';
-  document.getElementById('tbilling').textContent = isAnnual ? 'Billed €148/year' : ' ';
+  document.getElementById('tbilling').textContent = isAnnual ? t['billing.trader.annual'] : ' ';
   document.getElementById('pprice').innerHTML = isAnnual ? '25€<span>/mo</span>' : '39€<span>/mo</span>';
-  document.getElementById('pbilling').textContent = isAnnual ? 'Billed €304/year' : ' ';
+  document.getElementById('pbilling').textContent = isAnnual ? t['billing.pro.annual'] : ' ';
 }
 
 // ── FAQ ───────────────────────────────────────────────────────
@@ -753,9 +863,16 @@ function toggleFaq(el) {
   arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(45deg)';
 }
 
-// ── NAV SCROLL ────────────────────────────────────────────────
+// ── NAV SCROLL + PARALLAX ─────────────────────────────────────
 window.addEventListener('scroll', () => {
-  document.querySelector('nav').style.background = window.scrollY > 20 ? 'rgba(5,8,16,.95)' : 'rgba(5,8,16,.8)';
+  const y = window.scrollY;
+  document.querySelector('nav').style.background = y > 20 ? 'rgba(5,8,16,.95)' : 'rgba(5,8,16,.8)';
+  if (y < window.innerHeight) {
+    const g = document.querySelector('.hero-grid');
+    const b = document.querySelector('.hero-bg');
+    if (g) g.style.transform = `translateY(${y * 0.25}px)`;
+    if (b) b.style.transform = `translateY(${y * 0.12}px)`;
+  }
 });
 
 // ── i18n ──────────────────────────────────────────────────────
@@ -808,6 +925,13 @@ const LANGS = {
     'cta.h2':'Your edge is in<br><em>the data you\'ve ignored.</em>','cta.sub':'Start logging. Let the AI do the heavy lifting.',
     'cta.btn':'Start free — no card needed','cta.note':"15 trades/month forever free · Upgrade when you're ready",
     'footer.copy':'© 2026 Chartlog · The AI-powered trading journal',
+    'footer.feat':'Features','footer.pricing':'Pricing','footer.ref':'Referral',
+    'compat.label':'Compatible with',
+    'cmp.feat':'Feature','cmp.price':'Monthly price','cmp.coach':'AI Coach chat',
+    'cmp.replay':'Trade Replay AI','cmp.brief':'Morning Brief AI',
+    'cmp.cal':'Economic calendar','cmp.news':'Live news feed','cmp.ref':'Referral program',
+    'cmp.note':'* Edgewonk billed annually at €169/yr. No monthly plan available.',
+    'billing.trader.annual':'Billed €148/year','billing.pro.annual':'Billed €304/year',
   },
   fr: {
     'nav.features':'Fonctionnalités','nav.how':'Comment ça marche','nav.pricing':'Tarifs','nav.referral':'Parrainage','nav.cta':'Commencer gratuitement →',
@@ -857,6 +981,13 @@ const LANGS = {
     'cta.h2':'Ton edge est dans<br><em>les données que tu ignores.</em>','cta.sub':"Commence à enregistrer. Laisse l'IA faire le reste.",
     'cta.btn':'Commencer gratuitement — sans CB','cta.note':'15 trades par mois gratuits pour toujours · Sans engagement',
     'footer.copy':"© 2026 Chartlog · Le journal de trading boosté par l'IA",
+    'footer.feat':'Fonctionnalités','footer.pricing':'Tarifs','footer.ref':'Parrainage',
+    'compat.label':'Compatible avec',
+    'cmp.feat':'Fonctionnalité','cmp.price':'Prix mensuel','cmp.coach':'Coach IA chat',
+    'cmp.replay':'Replay IA','cmp.brief':'Brief matinal IA',
+    'cmp.cal':'Calendrier économique','cmp.news':'News en direct','cmp.ref':'Programme de parrainage',
+    'cmp.note':"* Edgewonk facturé annuellement 169€/an. Pas d'offre mensuelle.",
+    'billing.trader.annual':'Facturé 148€/an','billing.pro.annual':'Facturé 304€/an',
   }
 };
 
@@ -903,22 +1034,41 @@ function applyLang() {
     'ref-cta':'ref.cta',
     'cta-h2':'cta.h2','cta-sub':'cta.sub','cta-btn':'cta.btn','cta-note':'cta.note',
     'footer-copy':'footer.copy',
+    'footer-feat':'footer.feat','footer-pricing':'footer.pricing','footer-ref':'footer.ref',
+    'compat-label':'compat.label',
+    'cmp-feat':'cmp.feat','cmp-price':'cmp.price','cmp-coach':'cmp.coach',
+    'cmp-replay':'cmp.replay','cmp-brief':'cmp.brief','cmp-cal':'cmp.cal',
+    'cmp-news':'cmp.news','cmp-ref':'cmp.ref','cmp-note':'cmp.note',
   };
   Object.entries(ids).forEach(([id, key]) => {
     if (!key) return;
     const el = document.getElementById(id);
     if (el && t[key]) el.innerHTML = t[key];
   });
-  // Typing effect on hero sub
-  const subEl = document.getElementById('hero-sub');
-  if (subEl) typeText(t['hero.sub'], subEl);
+  startHeroCycle(currentLang);
   document.documentElement.lang = currentLang;
 }
 
-// Init typing on load
+// ── 3D TILT ON MOCKUP ─────────────────────────────────────────
+const tiltWrap = document.querySelector('.mockup-wrap');
+const tiltFrame = document.querySelector('.mockup-frame');
+if (tiltWrap && tiltFrame) {
+  tiltWrap.addEventListener('mousemove', e => {
+    const r = tiltWrap.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width - .5) * 8;
+    const y = ((e.clientY - r.top) / r.height - .5) * 5;
+    tiltFrame.style.transform = `perspective(1100px) rotateY(${x}deg) rotateX(${-y}deg)`;
+    tiltFrame.style.transition = 'transform .08s ease';
+  });
+  tiltWrap.addEventListener('mouseleave', () => {
+    tiltFrame.style.transition = 'transform .55s ease';
+    tiltFrame.style.transform = 'perspective(1100px) rotateY(0deg) rotateX(0deg)';
+  });
+}
+
+// Init on load
 window.addEventListener('load', () => {
-  const subEl = document.getElementById('hero-sub');
-  if (subEl) typeText(texts.en, subEl);
+  applyLang();
 });
 </script>
 </body>
