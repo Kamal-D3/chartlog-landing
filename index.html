@@ -32,6 +32,7 @@ html { scroll-behavior: smooth; }
 body { background: var(--black); color: var(--text); font-family: var(--sans); overflow-x: hidden; line-height: 1.6; }
 body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: .4; }
 
+/* NAV */
 nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5%; height: 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(5,8,16,.8); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: background .3s; }
 .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .nav-logo-text { font-family: var(--display); font-size: 18px; font-weight: 700; color: var(--text); letter-spacing: -.2px; }
@@ -41,6 +42,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5%; h
 .nav-cta { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff !important; padding: 8px 20px; border-radius: 8px; font-weight: 600 !important; font-size: 13px !important; text-decoration: none; transition: opacity .2s, transform .2s !important; box-shadow: 0 0 20px rgba(0,212,255,.2); }
 .nav-cta:hover { opacity: .9; transform: translateY(-1px); }
 
+/* HERO */
 .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 120px 5% 80px; position: relative; text-align: center; overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,212,255,.09) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168,85,247,.07) 0%, transparent 50%), radial-gradient(ellipse 40% 50% at 20% 70%, rgba(59,130,246,.05) 0%, transparent 50%); pointer-events: none; }
 .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,212,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,.04) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 0%, transparent 70%); pointer-events: none; }
@@ -62,6 +64,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5%; h
 .hero-stat-num em { font-style: normal; color: var(--accent); }
 .hero-stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
 
+/* FLOATING KPIs */
 .floating-kpis { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 0; }
 .fkpi { position: absolute; background: var(--card); border: 1px solid var(--border2); border-radius: 12px; padding: 10px 16px; font-size: 12px; font-weight: 700; backdrop-filter: blur(10px); animation: floatUpDown 4s ease-in-out infinite; }
 .fkpi:nth-child(1) { top: 20%; left: 5%; animation-delay: 0s; color: var(--green); border-color: rgba(0,230,138,.2); background: rgba(0,230,138,.05); }
@@ -70,6 +73,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5%; h
 .fkpi:nth-child(4) { bottom: 25%; right: 3%; animation-delay: .5s; color: var(--warn); border-color: rgba(245,158,11,.2); background: rgba(245,158,11,.05); }
 @keyframes floatUpDown { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
 
+/* COMPATIBLE BAR */
 .compat-bar { padding: 24px 5%; background: rgba(8,13,28,.6); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
 .compat-inner { display: flex; align-items: center; gap: 16px; }
 .compat-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; white-space: nowrap; flex-shrink: 0; }
@@ -80,7 +84,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 5%; h
 .compat-icon { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
 @keyframes scrollLeft { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-.mockup-section { padding: 0 5% 100px; position: relative; }
+/* MOCKUP */
+.mockup-/* SECTIONS */
+section { padding: 0 5% 100px; position: relative; }
 .mockup-wrap { max-width: 1100px; margin: 0 auto; position: relative; }
 .mockup-glow { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 70%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
 .mockup-frame { background: var(--card); border: 1px solid var(--border2); border-radius: 16px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(0,212,255,.05); }
@@ -119,6 +125,7 @@ h2.section-title { font-family: var(--display); font-size: clamp(32px, 4vw, 52px
 h2.section-title em { font-style: normal; color: var(--accent); }
 .section-sub { font-size: 17px; color: var(--soft); max-width: 520px; line-height: 1.7; }
 
+/* FEATURES */
 .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 60px; max-width: 1100px; margin-left: auto; margin-right: auto; }
 .feat-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: all .3s; position: relative; overflow: hidden; }
 .feat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; opacity: 0; transition: opacity .3s; }
@@ -135,6 +142,7 @@ h2.section-title em { font-style: normal; color: var(--accent); }
 .feat-card p { font-size: 13.5px; color: var(--soft); line-height: 1.7; }
 .feat-tag { display: inline-block; margin-top: 14px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; }
 
+/* BEFORE AFTER */
 .ba-wrap { max-width: 1000px; margin: 60px auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .ba-card { border-radius: 16px; padding: 28px; position: relative; overflow: hidden; }
 .ba-card.before { background: rgba(255,77,106,.04); border: 1px solid rgba(255,77,106,.2); }
@@ -146,6 +154,7 @@ h2.section-title em { font-style: normal; color: var(--accent); }
 .ba-row:last-child { border-bottom: none; }
 .ba-icon { font-size: 16px; flex-shrink: 0; }
 
+/* HOW */
 .how-wrap { max-width: 900px; margin: 60px auto 0; }
 .how-step { display: grid; grid-template-columns: 60px 1fr; gap: 24px; padding: 32px 0; border-bottom: 1px solid var(--border); }
 .how-step:last-child { border-bottom: none; }
@@ -153,16 +162,7 @@ h2.section-title em { font-style: normal; color: var(--accent); }
 .how-content h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin-bottom: 8px; letter-spacing: -.2px; }
 .how-content p { font-size: 14px; color: var(--soft); line-height: 1.7; }
 
-.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 60px; max-width: 1100px; margin-left: auto; margin-right: auto; }
-.testi-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; transition: all .3s; }
-.testi-card:hover { transform: translateY(-4px); border-color: var(--border2); }
-.testi-stars { color: var(--warn); font-size: 13px; margin-bottom: 14px; letter-spacing: 2px; }
-.testi-text { font-size: 14px; color: var(--soft); line-height: 1.8; font-style: italic; margin-bottom: 20px; }
-.testi-author { display: flex; align-items: center; gap: 10px; }
-.testi-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; font-family: var(--display); }
-.testi-name { font-size: 13px; font-weight: 700; color: var(--text); }
-.testi-role { font-size: 11px; color: var(--muted); }
-
+/* PRICING */
 .billing-toggle { display: inline-flex; gap: 0; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 3px; margin-bottom: 48px; }
 .billing-btn { padding: 8px 22px; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--sans); background: transparent; color: var(--muted); transition: all .2s; }
 .billing-btn.active { background: linear-gradient(135deg, rgba(0,212,255,.12), rgba(59,130,246,.08)); color: var(--accent); }
@@ -188,6 +188,7 @@ h2.section-title em { font-style: normal; color: var(--accent); }
 .plan-feat .cross { color: var(--muted); flex-shrink: 0; margin-top: 1px; }
 .plan-feat strong { color: var(--text); }
 
+/* COMPARE */
 .compare-bar { max-width: 1000px; margin: 48px auto 0; background: rgba(0,212,255,.03); border: 1px solid rgba(0,212,255,.1); border-radius: 16px; padding: 28px; overflow-x: auto; }
 .compare-bar table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .compare-bar th { padding: 8px 12px; text-align: center; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); border-bottom: 1px solid var(--border); }
@@ -199,6 +200,7 @@ h2.section-title em { font-style: normal; color: var(--accent); }
 .compare-bar .us-val { color: var(--accent); font-weight: 700; }
 .compare-note { font-size: 11px; color: var(--muted); margin-top: 12px; text-align: right; }
 
+/* REFERRAL */
 .ref-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 48px; }
 .ref-step { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; text-align: center; transition: all .3s; }
 .ref-step:hover { transform: translateY(-4px); border-color: var(--border2); }
@@ -208,12 +210,14 @@ h2.section-title em { font-style: normal; color: var(--accent); }
 .ref-highlight { display: inline-block; padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 13px; }
 .ref-affiliate { background: linear-gradient(135deg, rgba(0,212,255,.06), rgba(168,85,247,.04)); border: 1px solid rgba(0,212,255,.15); border-radius: 20px; padding: 36px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 
+/* CTA BANNER */
 .cta-banner { padding: 100px 5%; text-align: center; position: relative; overflow: hidden; }
 .cta-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,212,255,.06) 0%, transparent 70%); pointer-events: none; }
 .cta-banner h2 { font-family: var(--display); font-size: clamp(34px, 5vw, 64px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 20px; }
 .cta-banner h2 em { font-style: normal; background: linear-gradient(135deg, var(--accent), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .cta-banner p { font-size: 17px; color: var(--soft); margin-bottom: 40px; }
 
+/* FOOTER */
 footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
 .footer-logo { font-family: var(--display); font-size: 16px; font-weight: 800; color: var(--text); }
 .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
@@ -221,10 +225,12 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
 .footer-links a:hover { color: var(--soft); }
 .footer-copy { font-size: 12px; color: var(--muted); }
 
+/* ANIMATIONS */
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.visible { opacity: 1; transform: none; }
 
+/* HERO ORBS */
 .hero-orb { position: absolute; border-radius: 50%; pointer-events: none; }
 .hero-orb:nth-child(1) { width: 640px; height: 640px; background: radial-gradient(circle, rgba(0,212,255,.07) 0%, transparent 65%); top: -160px; left: -120px; animation: orbFloat1 13s ease-in-out infinite; }
 .hero-orb:nth-child(2) { width: 500px; height: 500px; background: radial-gradient(circle, rgba(168,85,247,.08) 0%, transparent 65%); top: 5%; right: -100px; animation: orbFloat2 10s ease-in-out infinite; }
@@ -233,6 +239,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
 @keyframes orbFloat2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-35px,28px)} }
 @keyframes orbFloat3 { 0%,100%{transform:translate(0,0)} 40%{transform:translate(22px,-18px)} 80%{transform:translate(-18px,12px)} }
 
+/* TICKER */
 .ticker-bar { overflow: hidden; padding: 9px 0; background: rgba(5,8,16,.92); border-bottom: 1px solid rgba(0,212,255,.08); position: relative; z-index: 99; }
 .ticker-track { display: flex; animation: tickerScroll 38s linear infinite; }
 .ticker-track:hover { animation-play-state: paused; }
@@ -241,16 +248,20 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
 .ticker-item .dn { color: #ff4d6a; }
 @keyframes tickerScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
+/* STAGGER REVEAL */
 .reveal-stagger > * { opacity: 0; transform: translateY(26px); transition: opacity .58s ease, transform .58s ease; }
 
+/* FEATURED PLAN PULSE */
 @keyframes planPulse { 0%,100%{box-shadow:0 0 40px rgba(0,212,255,.06),0 0 0 1px rgba(0,212,255,.12)} 50%{box-shadow:0 0 65px rgba(0,212,255,.15),0 0 0 1px rgba(0,212,255,.28)} }
 .plan-card.featured { animation: planPulse 3.5s ease-in-out infinite; }
 
+/* FKPI HOVER */
 .fkpi { transition: filter .2s ease, box-shadow .2s ease; }
 .fkpi:hover { filter: brightness(1.25); box-shadow: 0 10px 30px rgba(0,0,0,.45); }
 
+/* RESPONSIVE */
 @media (max-width: 900px) {
-  .features-grid, .plans-grid, .testimonials-grid, .ref-steps, .ba-wrap { grid-template-columns: 1fr; }
+  .features-grid, .plans-grid, .ref-steps, .ba-wrap { grid-template-columns: 1fr; }
   .mockup-body { grid-template-columns: 1fr; height: auto; }
   .mockup-sidebar { display: none; }
   .mock-kpis { grid-template-columns: repeat(3,1fr); }
@@ -263,6 +274,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
 </style>
 </head>
 <body>
+<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
     <svg width="32" height="32" viewBox="0 0 58 58">
@@ -294,6 +306,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </ul>
 </nav>
 
+<!-- TICKER BAR -->
 <div class="ticker-bar">
   <div class="ticker-track">
     <div class="ticker-item">FDAX <span class="up">▲ 18,204.5 +0.34%</span></div>
@@ -319,6 +332,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </div>
 </div>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
@@ -360,6 +374,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </div>
 </section>
 
+<!-- COMPATIBLE BAR -->
 <div class="compat-bar">
   <div class="compat-inner">
     <span class="compat-label" id="compat-label">Compatible with</span>
@@ -382,6 +397,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </div>
 </div>
 
+<!-- APP MOCKUP -->
 <div class="mockup-section">
   <div class="mockup-wrap">
     <div class="mockup-glow"></div>
@@ -414,6 +430,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
         </div>
         <div class="mockup-main">
           
+          <!-- DASHBOARD PANEL -->
           <div class="mock-panel active" id="panel-dashboard">
             <div class="mock-kpis">
               <div class="mock-kpi"><div class="mock-kpi-label">Winrate</div><div class="mock-kpi-val" style="color:#00e68a">67.4%</div></div>
@@ -440,6 +457,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
             </div>
           </div>
           
+          <!-- HISTORY PANEL -->
           <div class="mock-panel" id="panel-history">
             <div style="display:flex;flex-direction:column;gap:8px">
               <div style="background:rgba(13,20,38,.9);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;justify-content:space-between;align-items:center">
@@ -461,6 +479,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
             </div>
           </div>
           
+          <!-- COACH PANEL -->
           <div class="mock-panel" id="panel-coach">
             <div style="display:flex;flex-direction:column;gap:10px;height:100%">
               <div style="background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.2);border-radius:10px;padding:14px">
@@ -477,6 +496,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
             </div>
           </div>
           
+          <!-- HEATMAP PANEL -->
           <div class="mock-panel" id="panel-heatmap">
             <div style="font-size:10px;color:#64748b;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:.8px">Performance Heatmap — Win rate by hour</div>
             <div style="display:grid;grid-template-columns:40px repeat(5,1fr);gap:4px;font-size:10px">
@@ -513,6 +533,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </div>
 </div>
 
+<!-- FEATURES -->
 <section id="features">
   <div style="max-width:1100px;margin:0 auto">
     <div class="section-label" id="feat-label">Features</div>
@@ -529,6 +550,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </div>
 </section>
 
+<!-- BEFORE / AFTER -->
 <section style="background:rgba(8,13,28,.5)">
   <div style="max-width:1100px;margin:0 auto">
     <div class="section-label" id="ba-label">Before / After</div>
@@ -557,6 +579,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </div>
 </section>
 
+<!-- HOW IT WORKS -->
 <section id="how">
   <div style="max-width:1100px;margin:0 auto">
     <div class="section-label" id="how-label">How it works</div>
@@ -571,18 +594,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </div>
 </section>
 
-<section style="background:rgba(8,13,28,.5)">
-  <div style="max-width:1100px;margin:0 auto">
-    <div class="section-label" id="testi-label">Traders say</div>
-    <h2 class="section-title" id="testi-title">Built for traders,<br><em>by traders.</em></h2>
-    <div class="testimonials-grid reveal-stagger">
-      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text" id="testi1">"The AI coach actually understands Ichimoku. I told it I use TK crosses on M1 and it analysed all my trades with that framework. Nothing else does this."</p><div class="testi-author"><div class="testi-avatar" style="background:rgba(0,212,255,.12);color:var(--accent)">M</div><div><div class="testi-name" id="testi1-name">Marc T.</div><div class="testi-role" id="testi1-role">DAX scalper · 2 years</div></div></div></div>
-      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text" id="testi2">"I switched from TradeZella. Chartlog is simpler to use, the AI chat is way better, and I save €15/month. The morning brief alone is worth it."</p><div class="testi-author"><div class="testi-avatar" style="background:rgba(0,230,138,.12);color:var(--green)">S</div><div><div class="testi-name" id="testi2-name">Sofia R.</div><div class="testi-role" id="testi2-role">S&P 500 · Swing trader</div></div></div></div>
-      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text" id="testi3">"The heatmap showed me I lose 80% of my trades between 2pm and 3pm. I just stopped trading that window. Best decision I ever made."</p><div class="testi-author"><div class="testi-avatar" style="background:rgba(168,85,247,.12);color:var(--purple)">K</div><div><div class="testi-name" id="testi3-name">Kevin D.</div><div class="testi-role" id="testi3-role">Forex trader · SMC strategy</div></div></div></div>
-    </div>
-  </div>
-</section>
-
+<!-- PRICING -->
 <section id="pricing" style="background:rgba(8,13,28,.5)">
   <div style="max-width:1000px;margin:0 auto;text-align:center">
     <div class="section-label" id="pricing-label">Pricing</div>
@@ -615,6 +627,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </div>
 </section>
 
+<!-- FAQ -->
 <section>
   <div style="max-width:700px;margin:0 auto">
     <div class="section-label" id="faq-label">FAQ</div>
@@ -629,6 +642,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </div>
 </section>
 
+<!-- REFERRAL -->
 <section id="referral" style="background:rgba(8,13,28,.5)">
   <div style="max-width:1000px;margin:0 auto;text-align:center">
     <div class="section-label" id="ref-label">Referral Program</div>
@@ -662,6 +676,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </div>
 </section>
 
+<!-- CTA BANNER -->
 <div class="cta-banner">
   <div style="position:relative;z-index:1">
     <h2 id="cta-h2">Your edge is in<br><em>the data you've ignored.</em></h2>
@@ -671,6 +686,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
   </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-logo">Chartlog</div>
   <div class="footer-links">
@@ -686,6 +702,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
 
 <script>
 
+// ── SCROLL REVEAL ─────────────────────────────────────────────
 const reveals = document.querySelectorAll('.reveal');
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
@@ -704,6 +721,7 @@ const staggerObs = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal-stagger').forEach(el => staggerObs.observe(el));
 
+// ── TYPING EFFECT ───────────────────────────────────────────
 const heroLines = {
   en: [
     'The all-in-one trading journal that coaches you in real time.',
@@ -743,6 +761,7 @@ function startHeroCycle(lang) {
   cycle();
 }
 
+// ── COUNT UP ANIMATION ──────────────────────────────────────
 function countUp(el, target, suffix='') {
   let start = 0;
   const duration = 1500;
@@ -757,6 +776,7 @@ function initCounters() {
   const stat2 = document.getElementById('stat2');
   if (stat2 && stat2.textContent === '0') countUp(stat2, 50);
 }
+// ── FKPI COUNTER ANIMATION ────────────────────────────────
 function animateFkpis() {
   document.querySelectorAll('.fkpi[data-val]').forEach(el => {
     const val = parseFloat(el.dataset.val);
@@ -780,6 +800,7 @@ const heroObs = new IntersectionObserver(entries => {
 const heroEl = document.querySelector('.hero');
 if (heroEl) heroObs.observe(heroEl);
 
+// ── MOCKUP TABS ─────────────────────────────────────────────
 let autoRotate;
 function switchPanel(name, tab) {
   document.querySelectorAll('.mock-panel').forEach(p => p.classList.remove('active'));
@@ -803,6 +824,7 @@ function startAutoRotate() {
 }
 startAutoRotate();
 
+// ── BILLING TOGGLE ──────────────────────────────────────────
 function switchBilling(mode) {
   const isAnnual = mode === 'annual';
   const t = LANGS[currentLang];
@@ -814,6 +836,7 @@ function switchBilling(mode) {
   document.getElementById('pbilling').textContent = isAnnual ? t['billing.pro.annual'] : ' ';
 }
 
+// ── FAQ ───────────────────────────────────────────────────
 function toggleFaq(el) {
   const ans = el.nextElementSibling;
   const arrow = el.querySelector('.faq-arrow');
@@ -823,6 +846,7 @@ function toggleFaq(el) {
   arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(45deg)';
 }
 
+// ── NAV SCROLL + PARALLAX ─────────────────────────────────
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
   document.querySelector('nav').style.background = y > 20 ? 'rgba(5,8,16,.95)' : 'rgba(5,8,16,.8)';
@@ -834,6 +858,7 @@ window.addEventListener('scroll', () => {
   }
 });
 
+// ── i18n ──────────────────────────────────────────────────
 const LANGS = {
   en: {
     'nav.features':'Features','nav.how':'How it works','nav.pricing':'Pricing','nav.referral':'Referral','nav.cta':'Start free →',
@@ -857,13 +882,6 @@ const LANGS = {
     'how2.title':'Get instant AI feedback on every trade','how2.p':'As soon as a trade is saved, the AI coach analyses your entry, risk management, and exit. It spots recurring mistakes before they become expensive habits.',
     'how3.title':'Track your real statistics — not just P&L','how3.p':'Winrate by scenario, discipline score, R:R evolution, emotion impact, hourly heatmap. Numbers that actually tell you where your edge is.',
     'how4.title':'Refine your plan, stay in the zone','how4.p':'Your trading plan lives in Chartlog. The morning brief keeps it top of mind. The evening review closes the loop.',
-    'testi.label':'Traders say','testi.title':'Built for traders,<br><em>by traders.</em>',
-    'testi1':'"The AI coach actually understands Ichimoku. I told it I use TK crosses on M1 and it analysed all my trades with that framework. Nothing else does this."',
-    'testi1.name':'Marc T.','testi1.role':'DAX scalper · 2 years',
-    'testi2':'"I switched from TradeZella. Chartlog is simpler to use, the AI chat is way better, and I save €15/month. The morning brief alone is worth it."',
-    'testi2.name':'Sofia R.','testi2.role':'S&P 500 · Swing trader',
-    'testi3':'"The heatmap showed me I lose 80% of my trades between 2pm and 3pm. I just stopped trading that window. Best decision I ever made."',
-    'testi3.name':'Kevin D.','testi3.role':'Forex trader · SMC strategy',
     'pricing.label':'Pricing','pricing.title':'Start free.<br><em>Upgrade when ready.</em>','pricing.sub':'No credit card required. Cancel anytime.',
     'billing.monthly':'Monthly','billing.annual':'Annual',
     'faq.label':'FAQ','faq.title':'Common <em>questions</em>',
@@ -913,13 +931,6 @@ const LANGS = {
     'how2.title':"Reçois un retour avant que les mauvaises habitudes s'installent",'how2.p':"Le coach IA analyse chaque trade sauvegardé. Il détecte les patterns avant qu'ils ne coûtent cher.",
     'how3.title':'Suis ce qui compte vraiment','how3.p':"Taux de réussite, score de discipline, évolution R:R, impact des émotions, heatmap horaire.",
     'how4.title':'Construis un système, pas juste des habitudes','how4.p':"Ton plan, ton brief, ta revue du soir. Chartlog connecte la boucle de la préparation à l'analyse.",
-    'testi.label':'Ils en parlent','testi.title':'De vrais traders.<br><em>De vrais résultats.</em>',
-    'testi1':'"Le coach IA comprend vraiment ma stratégie. J\'utilise l\'Ichimoku sur M1 — il analyse chaque trade dans ce cadre. Aucun autre outil ne fait ça."',
-    'testi1.name':'Marc T.','testi1.role':'Scalper DAX · 2 ans',
-    'testi2':'"J\'ai quitté TradeZella. Plus simple, moins cher, et le coach IA est dans une autre catégorie. Le brief matinal a tout changé."',
-    'testi2.name':'Sofia R.','testi2.role':'S&P 500 · Swing trader',
-    'testi3':'"La heatmap m\'a montré que je perdais systématiquement entre 14h et 15h. J\'ai arrêté de trader ce créneau. Un seul insight. Un impact immédiat."',
-    'testi3.name':'Kevin D.','testi3.role':'Forex · Stratégie SMC',
     'pricing.label':'Tarifs','pricing.title':'Transparent.<br><em>Sans surprise.</em>','pricing.sub':"Commence gratuitement. Passe à la vitesse supérieure quand tu es prêt. Sans engagement.",
     'billing.monthly':'Mensuel','billing.annual':'Annuel',
     'faq.label':'FAQ','faq.title':'Bonnes <em>questions.</em>',
@@ -974,10 +985,6 @@ function applyLang() {
     'how-label':'how.label','how-title':'how.title','how-sub':'how.sub',
     'how1-title':'how1.title','how1-p':'how1.p','how2-title':'how2.title','how2-p':'how2.p',
     'how3-title':'how3.title','how3-p':'how3.p','how4-title':'how4.title','how4-p':'how4.p',
-    'testi-label':'testi.label','testi-title':'testi.title',
-    'testi1':'testi1','testi1-name':'testi1.name','testi1-role':'testi1.role',
-    'testi2':'testi2','testi2-name':'testi2.name','testi2-role':'testi2.role',
-    'testi3':'testi3','testi3-name':'testi3.name','testi3-role':'testi3.role',
     'pricing-label':'pricing.label','pricing-title':'pricing.title','pricing-sub':'pricing.sub',
     'billing-monthly':'billing.monthly','billing-annual-text':'billing.annual',
     'faq-label':'faq.label','faq-title':'faq.title',
@@ -1007,6 +1014,7 @@ function applyLang() {
   document.documentElement.lang = currentLang;
 }
 
+// ── 3D TILT ON MOCKUP ─────────────────────────────────────
 const tiltWrap = document.querySelector('.mockup-wrap');
 const tiltFrame = document.querySelector('.mockup-frame');
 if (tiltWrap && tiltFrame) {
@@ -1023,6 +1031,7 @@ if (tiltWrap && tiltFrame) {
   });
 }
 
+// Init on load
 window.addEventListener('load', () => {
   applyLang();
 });
