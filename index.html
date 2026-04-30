@@ -201,13 +201,22 @@ h2.section-title em { font-style: normal; color: var(--accent); }
 .compare-note { font-size: 11px; color: var(--muted); margin-top: 12px; text-align: right; }
 
 /* REFERRAL */
-.ref-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 48px; }
+.ref-steps { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-bottom: 32px; }
 .ref-step { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; text-align: center; transition: all .3s; }
 .ref-step:hover { transform: translateY(-4px); border-color: var(--border2); }
 .ref-step-icon { font-size: 40px; margin-bottom: 14px; }
 .ref-step-title { font-family: var(--display); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
 .ref-step-desc { font-size: 13px; color: var(--soft); line-height: 1.6; }
 .ref-highlight { display: inline-block; padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 13px; }
+.ref-tiers { display: flex; gap: 10px; justify-content: center; margin: 0 0 48px; flex-wrap: wrap; }
+.ref-tier { flex: 1; min-width: 130px; max-width: 190px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px 16px; text-align: center; transition: all .3s; }
+.ref-tier:hover { transform: translateY(-3px); border-color: var(--border2); }
+.ref-tier-badge { font-family: var(--display); font-size: 20px; font-weight: 800; color: var(--muted); margin-bottom: 6px; }
+.ref-tier-discount { font-family: var(--display); font-size: 30px; font-weight: 800; color: var(--accent); margin: 8px 0 4px; }
+.ref-tier-next { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.ref-tier-free { font-size: 12px; font-weight: 700; color: #ffd700; margin-top: 2px; }
+.ref-tier-zero { font-size: 13px; color: var(--muted); line-height: 1.5; padding: 8px 0; }
+.ref-tier-gold { border-color: rgba(255,215,0,.25); background: linear-gradient(145deg, rgba(255,215,0,.04), var(--card)); }
 .ref-affiliate { background: linear-gradient(135deg, rgba(0,212,255,.06), rgba(168,85,247,.04)); border: 1px solid rgba(0,212,255,.15); border-radius: 20px; padding: 36px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 
 /* CTA BANNER */
@@ -646,8 +655,8 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
 <section id="referral" style="background:rgba(8,13,28,.5)">
   <div style="max-width:1000px;margin:0 auto;text-align:center">
     <div class="section-label" id="ref-label">Referral Program</div>
-    <h2 class="section-title" id="ref-title">Invite a trader.<br><em>You both win.</em></h2>
-    <p class="section-sub" style="margin:0 auto 48px" id="ref-sub">Share Chartlog with a fellow trader. You get <strong style="color:var(--accent)">-20%</strong> on your subscription, they get <strong style="color:var(--green)">-10%</strong> on theirs. Forever.</p>
+    <h2 class="section-title" id="ref-title">Invite more.<br><em>Pay less. Until free.</em></h2>
+    <p class="section-sub" style="margin:0 auto 48px" id="ref-sub">Each active referral unlocks a bigger discount. Reach 10 and your subscription is <strong style="color:#ffd700">completely free 🎉</strong>. Your friends get <strong style="color:var(--green)">-10%</strong> on their plan forever.</p>
     <div class="ref-steps reveal-stagger">
       <div class="ref-step">
         <div class="ref-step-icon">🔗</div>
@@ -659,10 +668,31 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
         <div class="ref-step-title" id="ref-step2-title">Friend signs up</div>
         <div class="ref-step-desc" id="ref-step2-desc">They subscribe through your link and get <span class="ref-highlight" style="background:rgba(0,230,138,.1);color:var(--green)">-10% forever</span> on their plan. No expiry.</div>
       </div>
-      <div class="ref-step">
-        <div class="ref-step-icon">💰</div>
-        <div class="ref-step-title" id="ref-step3-title">You save 20%</div>
-        <div class="ref-step-desc" id="ref-step3-desc">As long as your referral stays active, you get <span class="ref-highlight" style="background:rgba(0,212,255,.1);color:var(--accent)">-20% on your plan</span>. More referrals = more savings.</div>
+    </div>
+    <div class="ref-tiers reveal">
+      <div class="ref-tier">
+        <div class="ref-tier-badge">0</div>
+        <div class="ref-tier-zero" id="ref-tier0-label">Refer your<br>1st trader →</div>
+      </div>
+      <div class="ref-tier">
+        <div class="ref-tier-badge" style="color:var(--accent)">1–2</div>
+        <div class="ref-tier-discount">-20%</div>
+        <div class="ref-tier-next" id="ref-tier1-next">Next tier: 3</div>
+      </div>
+      <div class="ref-tier">
+        <div class="ref-tier-badge" style="color:var(--accent)">3–5</div>
+        <div class="ref-tier-discount">-40%</div>
+        <div class="ref-tier-next" id="ref-tier2-next">Next tier: 6</div>
+      </div>
+      <div class="ref-tier">
+        <div class="ref-tier-badge" style="color:var(--accent)">6–9</div>
+        <div class="ref-tier-discount">-60%</div>
+        <div class="ref-tier-next" id="ref-tier3-next">Next tier: 10</div>
+      </div>
+      <div class="ref-tier ref-tier-gold">
+        <div class="ref-tier-badge" style="color:#ffd700">10+</div>
+        <div class="ref-tier-discount" style="color:#ffd700">-100%</div>
+        <div class="ref-tier-free" id="ref-tier4-free">🎉 Free subscription!</div>
       </div>
     </div>
     <div class="ref-affiliate reveal">
@@ -890,11 +920,13 @@ const LANGS = {
     'faq3.q':'Is my data safe?','faq3.a':'Your data is stored on Supabase with row-level security — only you can access your trades. We never share or sell your data.',
     'faq4.q':'Can I cancel anytime?','faq4.a':'Yes, cancel anytime with one click. No questions asked. Your data stays accessible on the Free plan even after downgrading.',
     'faq5.q':'What AI powers the coach?','faq5.a':'Chartlog uses Claude by Anthropic — one of the most capable AI models available today, adapted specifically for trading analysis and coaching.',
-    'ref.label':'Referral Program','ref.title':'Invite a trader.<br><em>You both win.</em>',
-    'ref.sub':'Share Chartlog with a fellow trader. You get <strong style="color:var(--accent)">-20%</strong> on your subscription, they get <strong style="color:var(--green)">-10%</strong> on theirs. Forever.',
+    'ref.label':'Referral Program','ref.title':'Invite more.<br><em>Pay less. Until free.</em>',
+    'ref.sub':'Each active referral unlocks a bigger discount. Reach 10 and your subscription is <strong style="color:#ffd700">completely free 🎉</strong>. Your friends get <strong style="color:var(--green)">-10%</strong> on their plan forever.',
     'ref.step1.title':'Get your link','ref.step1.desc':'Log in to your account and grab your unique referral link. Share it anywhere — Discord, Twitter, WhatsApp.',
     'ref.step2.title':'Friend signs up','ref.step2.desc':'They subscribe through your link and get <span style="background:rgba(0,230,138,.1);color:var(--green);padding:1px 6px;border-radius:4px;font-weight:700">-10% forever</span> on their plan.',
-    'ref.step3.title':'You save 20%','ref.step3.desc':'As long as your referral stays active, you get <span style="background:rgba(0,212,255,.1);color:var(--accent);padding:1px 6px;border-radius:4px;font-weight:700">-20% on your plan</span>.',
+    'ref.tier0.label':'Refer your<br>1st trader →',
+    'ref.tier1.next':'Next tier: 3','ref.tier2.next':'Next tier: 6','ref.tier3.next':'Next tier: 10',
+    'ref.tier4.free':'🎉 Free subscription!',
     'ref.aff.label':'Content creators & affiliates','ref.aff.title':'Earn 20% recurring commission',
     'ref.aff.desc':'Are you a trading educator, YouTuber or content creator? Earn 20% on every subscription — paid monthly, for as long as your referrals stay active.',
     'ref.cta':'Get my referral link →',
@@ -939,11 +971,13 @@ const LANGS = {
     'faq3.q':'Mes données sont-elles sécurisées ?','faq3.a':"Oui. Stockées sur Supabase avec sécurité par ligne — seul toi accèdes à tes trades. Nous ne partageons ni ne vendons jamais tes données.",
     'faq4.q':'Je peux annuler à tout moment ?','faq4.a':"Toujours. Un clic, sans question. Tes données restent accessibles sur le plan gratuit après le changement.",
     'faq5.q':"Quelle IA propulse le coach ?",'faq5.a':"Claude d'Anthropic — l'un des meilleurs modèles IA au monde. Appliqué spécifiquement à l'analyse et au coaching trading.",
-    'ref.label':'Programme de parrainage','ref.title':'Invite un trader.<br><em>Vous gagnez tous les deux.</em>',
-    'ref.sub':'Partage Chartlog avec un autre trader. Tu obtiens <strong style="color:var(--accent)">-20%</strong> sur ton abonnement, il obtient <strong style="color:var(--green)">-10%</strong> sur le sien. À vie.',
+    'ref.label':'Programme de parrainage','ref.title':'Plus tu parraines,<br><em>moins tu paies. Jusqu\'au gratuit.</em>',
+    'ref.sub':'Chaque filleul actif débloque une remise plus grande. Atteins 10 et ton abonnement est <strong style="color:#ffd700">totalement offert 🎉</strong>. Tes filleuls obtiennent <strong style="color:var(--green)">-10%</strong> sur leur plan à vie.',
     'ref.step1.title':'Obtiens ton lien','ref.step1.desc':'Connecte-toi à ton compte et récupère ton lien de parrainage unique. Partage-le partout — Discord, Twitter, WhatsApp.',
     'ref.step2.title':'Ton ami s\'inscrit','ref.step2.desc':'Il s\'abonne via ton lien et obtient <span style="background:rgba(0,230,138,.1);color:var(--green);padding:1px 6px;border-radius:4px;font-weight:700">-10% à vie</span> sur son plan.',
-    'ref.step3.title':'Tu économises 20%','ref.step3.desc':'Tant que ton filleul est actif, tu obtiens <span style="background:rgba(0,212,255,.1);color:var(--accent);padding:1px 6px;border-radius:4px;font-weight:700">-20% sur ton plan</span>.',
+    'ref.tier0.label':'Parrainez votre<br>1er trader →',
+    'ref.tier1.next':'Prochain palier : 3','ref.tier2.next':'Prochain palier : 6','ref.tier3.next':'Prochain palier : 10',
+    'ref.tier4.free':'🎉 Abonnement offert !',
     'ref.aff.label':'Créateurs & affiliés','ref.aff.title':'Gagne 20% de commission récurrente',
     'ref.aff.desc':'Tu es formateur, YouTubeur ou créateur de contenu trading ? Gagne 20% sur chaque abonnement généré — payé chaque mois, tant que tes filleuls restent actifs.',
     'ref.cta':'Obtenir mon lien de parrainage →',
@@ -994,7 +1028,8 @@ function applyLang() {
     'ref-label':'ref.label','ref-title':'ref.title','ref-sub':'ref.sub',
     'ref-step1-title':'ref.step1.title','ref-step1-desc':'ref.step1.desc',
     'ref-step2-title':'ref.step2.title','ref-step2-desc':'ref.step2.desc',
-    'ref-step3-title':'ref.step3.title','ref-step3-desc':'ref.step3.desc',
+    'ref-tier0-label':'ref.tier0.label','ref-tier1-next':'ref.tier1.next',
+    'ref-tier2-next':'ref.tier2.next','ref-tier3-next':'ref.tier3.next','ref-tier4-free':'ref.tier4.free',
     'ref-aff-label':'ref.aff.label','ref-aff-title':'ref.aff.title','ref-aff-desc':'ref.aff.desc',
     'ref-cta':'ref.cta',
     'cta-h2':'cta.h2','cta-sub':'cta.sub','cta-btn':'cta.btn','cta-note':'cta.note',
