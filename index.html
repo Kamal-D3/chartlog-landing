@@ -567,22 +567,22 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
     <p class="section-sub" id="ba-sub">This is what most traders use to track their performance. There's a better way.</p>
     <div class="ba-wrap reveal">
       <div class="ba-card before">
-        <div class="ba-label">❌ Before — Excel spreadsheet</div>
-        <div class="ba-row"><span class="ba-icon">😩</span><span style="color:#94a3b8">Manual entry for every trade — takes 10 minutes</span></div>
-        <div class="ba-row"><span class="ba-icon">🔢</span><span style="color:#94a3b8">No automatic stats, formulas break constantly</span></div>
-        <div class="ba-row"><span class="ba-icon">🧠</span><span style="color:#94a3b8">Zero AI feedback — you analyze alone</span></div>
-        <div class="ba-row"><span class="ba-icon">📷</span><span style="color:#94a3b8">Screenshots saved randomly in a folder</span></div>
-        <div class="ba-row"><span class="ba-icon">😰</span><span style="color:#94a3b8">No pattern detection, no discipline score</span></div>
-        <div class="ba-row"><span class="ba-icon">📵</span><span style="color:#94a3b8">Not accessible on mobile, no sync</span></div>
+        <div class="ba-label" id="ba-before-title">❌ Before — Excel spreadsheet</div>
+        <div class="ba-row"><span class="ba-icon">😩</span><span id="ba-b1" style="color:#94a3b8">Manual entry for every trade — takes 10 minutes</span></div>
+        <div class="ba-row"><span class="ba-icon">🔢</span><span id="ba-b2" style="color:#94a3b8">No automatic stats, formulas break constantly</span></div>
+        <div class="ba-row"><span class="ba-icon">🧠</span><span id="ba-b3" style="color:#94a3b8">Zero AI feedback — you analyze alone</span></div>
+        <div class="ba-row"><span class="ba-icon">📷</span><span id="ba-b4" style="color:#94a3b8">Screenshots saved randomly in a folder</span></div>
+        <div class="ba-row"><span class="ba-icon">😰</span><span id="ba-b5" style="color:#94a3b8">No pattern detection, no discipline score</span></div>
+        <div class="ba-row"><span class="ba-icon">📵</span><span id="ba-b6" style="color:#94a3b8">Not accessible on mobile, no sync</span></div>
       </div>
       <div class="ba-card after">
-        <div class="ba-label">✅ After — Chartlog</div>
-        <div class="ba-row"><span class="ba-icon">⚡</span><span style="color:#e2e8f0">AI fills the form from your screenshot in seconds</span></div>
-        <div class="ba-row"><span class="ba-icon">📊</span><span style="color:#e2e8f0">50+ stats calculated automatically in real time</span></div>
-        <div class="ba-row"><span class="ba-icon">🧠</span><span style="color:#e2e8f0">AI coach analyses every trade and gives feedback</span></div>
-        <div class="ba-row"><span class="ba-icon">🖼️</span><span style="color:#e2e8f0">Screenshots linked to each trade, stored securely</span></div>
-        <div class="ba-row"><span class="ba-icon">🎯</span><span style="color:#e2e8f0">Discipline score, patterns, heatmap — all automatic</span></div>
-        <div class="ba-row"><span class="ba-icon">📱</span><span style="color:#e2e8f0">Accessible anywhere, synced across all devices</span></div>
+        <div class="ba-label" id="ba-after-title">✅ After — Chartlog</div>
+        <div class="ba-row"><span class="ba-icon">⚡</span><span id="ba-a1" style="color:#e2e8f0">AI fills the form from your screenshot in seconds</span></div>
+        <div class="ba-row"><span class="ba-icon">📊</span><span id="ba-a2" style="color:#e2e8f0">50+ stats calculated automatically in real time</span></div>
+        <div class="ba-row"><span class="ba-icon">🧠</span><span id="ba-a3" style="color:#e2e8f0">AI coach analyses every trade and gives feedback</span></div>
+        <div class="ba-row"><span class="ba-icon">🖼️</span><span id="ba-a4" style="color:#e2e8f0">Screenshots linked to each trade, stored securely</span></div>
+        <div class="ba-row"><span class="ba-icon">🎯</span><span id="ba-a5" style="color:#e2e8f0">Discipline score, patterns, heatmap — all automatic</span></div>
+        <div class="ba-row"><span class="ba-icon">📱</span><span id="ba-a6" style="color:#e2e8f0">Accessible anywhere, synced across all devices</span></div>
       </div>
     </div>
   </div>
@@ -611,12 +611,12 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
     <p class="section-sub" style="margin:0 auto 40px" id="pricing-sub">No credit card required. Cancel anytime.</p>
     <div class="billing-toggle">
       <button class="billing-btn active" id="lbm" onclick="switchBilling('monthly')"><span id="billing-monthly">Monthly</span></button>
-      <button class="billing-btn" id="lba" onclick="switchBilling('annual')"><span id="billing-annual-text">Annual</span> <span class="save-badge">Save 35%</span></button>
+      <button class="billing-btn" id="lba" onclick="switchBilling('annual')"><span id="billing-annual-text">Annual</span> <span class="save-badge" id="save-badge">Save 35%</span></button>
     </div>
     <div class="plans-grid reveal-stagger">
-      <div class="plan-card"><div class="plan-name" style="color:var(--muted)">Free</div><div class="plan-price">0€</div><div class="plan-billing">Forever free</div><button class="plan-cta ghost" onclick="window.location='https://app.chartlog.ai'">Get started</button><div class="plan-features"><div class="plan-feat"><span class="check">✓</span><span>15 trades / month</span></div><div class="plan-feat"><span class="check">✓</span><span>Dashboard & equity curve</span></div><div class="plan-feat"><span class="check">✓</span><span>Trading plan</span></div><div class="plan-feat"><span class="check">✓</span><span>Economic calendar</span></div><div class="plan-feat"><span class="check">✓</span><span>5 AI analyses / month</span></div><div class="plan-feat"><span class="cross">✗</span><span style="color:var(--muted)">Advanced stats & heatmap</span></div></div></div>
-      <div class="plan-card featured"><div class="plan-popular">Most popular</div><div class="plan-name" style="color:var(--accent)">Trader</div><div class="plan-price" id="tprice">19€<span>/mo</span></div><div class="plan-billing" id="tbilling"> </div><button class="plan-cta primary" onclick="window.location='https://app.chartlog.ai'">Start Trader →</button><div class="plan-features"><div class="plan-feat"><span class="check">✓</span><strong>Unlimited trades</strong></div><div class="plan-feat"><span class="check">✓</span><span>All stats, heatmap, progression</span></div><div class="plan-feat"><span class="check">✓</span><strong>AI Coach chat</strong></div><div class="plan-feat"><span class="check">✓</span><strong>50 AI analyses / month</strong></div><div class="plan-feat"><span class="check">✓</span><span>Replay AI, Brief, Review</span></div><div class="plan-feat"><span class="check">✓</span><span>Live news feed</span></div><div class="plan-feat"><span class="cross">✗</span><span style="color:var(--muted)">Multi-account</span></div></div></div>
-      <div class="plan-card"><div class="plan-name" style="color:#c084fc">Pro</div><div class="plan-price" id="pprice">39€<span>/mo</span></div><div class="plan-billing" id="pbilling"> </div><button class="plan-cta pro" onclick="window.location='https://app.chartlog.ai'">Go Pro →</button><div class="plan-features"><div class="plan-feat"><span class="check">✓</span><strong>Everything in Trader</strong></div><div class="plan-feat"><span class="check">✓</span><strong>Unlimited AI</strong></div><div class="plan-feat"><span class="check">✓</span><strong>Multi-account</strong></div><div class="plan-feat"><span class="check">✓</span><span>Priority support</span></div><div class="plan-feat"><span class="check">✓</span><span>Early access to new features</span></div><div class="plan-feat"><span style="color:#c084fc">✦</span><span style="color:#c084fc">Future features first</span></div></div></div>
+      <div class="plan-card"><div class="plan-name" style="color:var(--muted)">Free</div><div class="plan-price">0€</div><div class="plan-billing" id="free-billing">Forever free</div><button class="plan-cta ghost" id="free-cta" onclick="window.location='https://app.chartlog.ai'">Get started</button><div class="plan-features"><div class="plan-feat"><span class="check">✓</span><span id="free-f1">15 trades / month</span></div><div class="plan-feat"><span class="check">✓</span><span id="free-f2">Dashboard & equity curve</span></div><div class="plan-feat"><span class="check">✓</span><span id="free-f3">Trading plan</span></div><div class="plan-feat"><span class="check">✓</span><span id="free-f4">Economic calendar</span></div><div class="plan-feat"><span class="check">✓</span><span id="free-f5">5 AI analyses / month</span></div><div class="plan-feat"><span class="cross">✗</span><span id="free-f6" style="color:var(--muted)">Advanced stats & heatmap</span></div></div></div>
+      <div class="plan-card featured"><div class="plan-popular" id="trader-popular">Most popular</div><div class="plan-name" style="color:var(--accent)">Trader</div><div class="plan-price" id="tprice">19€<span>/mo</span></div><div class="plan-billing" id="tbilling"> </div><button class="plan-cta primary" id="trader-cta" onclick="window.location='https://app.chartlog.ai'">Start Trader →</button><div class="plan-features"><div class="plan-feat"><span class="check">✓</span><strong id="trader-f1">Unlimited trades</strong></div><div class="plan-feat"><span class="check">✓</span><span id="trader-f2">All stats, heatmap, progression</span></div><div class="plan-feat"><span class="check">✓</span><strong id="trader-f3">AI Coach chat</strong></div><div class="plan-feat"><span class="check">✓</span><strong id="trader-f4">50 AI analyses / month</strong></div><div class="plan-feat"><span class="check">✓</span><span id="trader-f5">Replay AI, Brief, Review</span></div><div class="plan-feat"><span class="check">✓</span><span id="trader-f6">Live news feed</span></div><div class="plan-feat"><span class="cross">✗</span><span id="trader-f7" style="color:var(--muted)">Multi-account</span></div></div></div>
+      <div class="plan-card"><div class="plan-name" style="color:#c084fc">Pro</div><div class="plan-price" id="pprice">39€<span>/mo</span></div><div class="plan-billing" id="pbilling"> </div><button class="plan-cta pro" id="pro-cta" onclick="window.location='https://app.chartlog.ai'">Go Pro →</button><div class="plan-features"><div class="plan-feat"><span class="check">✓</span><strong id="pro-f1">Everything in Trader</strong></div><div class="plan-feat"><span class="check">✓</span><strong id="pro-f2">Unlimited AI</strong></div><div class="plan-feat"><span class="check">✓</span><strong id="pro-f3">Multi-account</strong></div><div class="plan-feat"><span class="check">✓</span><span id="pro-f4">Priority support</span></div><div class="plan-feat"><span class="check">✓</span><span id="pro-f5">Early access to new features</span></div><div class="plan-feat"><span style="color:#c084fc">✦</span><span id="pro-f6" style="color:#c084fc">Future features first</span></div></div></div>
     </div>
     <div class="compare-bar reveal">
       <table>
@@ -940,6 +940,34 @@ const LANGS = {
     'cmp.cal':'Economic calendar','cmp.news':'Live news feed','cmp.ref':'Referral program',
     'cmp.note':'* Edgewonk billed annually at €169/yr. No monthly plan available.',
     'billing.trader.annual':'Billed €148/year','billing.pro.annual':'Billed €304/year',
+    'save.badge':'Save 35%',
+    'free.billing':'Forever free','free.cta':'Get started',
+    'free.f1':'15 trades / month','free.f2':'Dashboard & equity curve',
+    'free.f3':'Trading plan','free.f4':'Economic calendar',
+    'free.f5':'5 AI analyses / month','free.f6':'Advanced stats & heatmap',
+    'trader.popular':'Most popular','trader.cta':'Start Trader →',
+    'trader.f1':'Unlimited trades','trader.f2':'All stats, heatmap, progression',
+    'trader.f3':'AI Coach chat','trader.f4':'50 AI analyses / month',
+    'trader.f5':'Replay AI, Brief, Review','trader.f6':'Live news feed',
+    'trader.f7':'Multi-account',
+    'pro.cta':'Go Pro →',
+    'pro.f1':'Everything in Trader','pro.f2':'Unlimited AI',
+    'pro.f3':'Multi-account','pro.f4':'Priority support',
+    'pro.f5':'Early access to new features','pro.f6':'Future features first',
+    'ba.before.title':'❌ Before — Excel spreadsheet',
+    'ba.b1':'Manual entry for every trade — takes 10 minutes',
+    'ba.b2':'No automatic stats, formulas break constantly',
+    'ba.b3':'Zero AI feedback — you analyze alone',
+    'ba.b4':'Screenshots saved randomly in a folder',
+    'ba.b5':'No pattern detection, no discipline score',
+    'ba.b6':'Not accessible on mobile, no sync',
+    'ba.after.title':'✅ After — Chartlog',
+    'ba.a1':'AI fills the form from your screenshot in seconds',
+    'ba.a2':'50+ stats calculated automatically in real time',
+    'ba.a3':'AI coach analyses every trade and gives feedback',
+    'ba.a4':'Screenshots linked to each trade, stored securely',
+    'ba.a5':'Discipline score, patterns, heatmap — all automatic',
+    'ba.a6':'Accessible anywhere, synced across all devices',
   },
   fr: {
     'nav.features':'Fonctionnalités','nav.how':'Comment ça marche','nav.pricing':'Tarifs','nav.referral':'Parrainage','nav.cta':'Commencer gratuitement →',
@@ -991,6 +1019,34 @@ const LANGS = {
     'cmp.cal':'Calendrier économique','cmp.news':'News en direct','cmp.ref':'Programme de parrainage',
     'cmp.note':"* Edgewonk facturé annuellement 169€/an. Pas d'offre mensuelle.",
     'billing.trader.annual':'Facturé 148€/an','billing.pro.annual':'Facturé 304€/an',
+    'save.badge':'Économisez 35 %',
+    'free.billing':'Gratuit à vie','free.cta':'Commencer',
+    'free.f1':'15 trades / mois','free.f2':'Dashboard & courbe d’equity',
+    'free.f3':'Plan de trading','free.f4':'Calendrier économique',
+    'free.f5':'5 analyses IA / mois','free.f6':'Stats avancées & heatmap',
+    'trader.popular':'Le plus populaire','trader.cta':'Commencer Trader →',
+    'trader.f1':'Trades illimités','trader.f2':'Toutes les stats, heatmap, progression',
+    'trader.f3':'Coach IA chat','trader.f4':'50 analyses IA / mois',
+    'trader.f5':'Replay IA, Brief, Review','trader.f6':'Fil d’actu en direct',
+    'trader.f7':'Multi-compte',
+    'pro.cta':'Passer en Pro →',
+    'pro.f1':'Tout le plan Trader','pro.f2':'IA illimitée',
+    'pro.f3':'Multi-compte','pro.f4':'Support prioritaire',
+    'pro.f5':'Accès anticipé aux nouvelles fonctions','pro.f6':'Fonctionnalités futures en premier',
+    'ba.before.title':'❌ Avant — Tableur Excel',
+    'ba.b1':'Saisie manuelle pour chaque trade — 10 minutes',
+    'ba.b2':'Pas de stats automatiques, formules qui cassent',
+    'ba.b3':'Zéro retour IA — tu analyses seul',
+    'ba.b4':'Screenshots éparpillés dans un dossier',
+    'ba.b5':'Aucune détection de patterns, pas de score',
+    'ba.b6':'Inaccessible sur mobile, pas de sync',
+    'ba.after.title':'✅ Après — Chartlog',
+    'ba.a1':"L'IA remplit le formulaire depuis ta capture en quelques secondes",
+    'ba.a2':'50+ stats calculées automatiquement en temps réel',
+    'ba.a3':'Le coach IA analyse chaque trade et donne un retour',
+    'ba.a4':'Screenshots liés à chaque trade, stockés en sécurité',
+    'ba.a5':'Score de discipline, patterns, heatmap — tout automatique',
+    'ba.a6':'Accessible partout, synchronisé sur tous les appareils',
   }
 };
 
@@ -1039,6 +1095,22 @@ function applyLang() {
     'cmp-feat':'cmp.feat','cmp-price':'cmp.price','cmp-coach':'cmp.coach',
     'cmp-replay':'cmp.replay','cmp-brief':'cmp.brief','cmp-cal':'cmp.cal',
     'cmp-news':'cmp.news','cmp-ref':'cmp.ref','cmp-note':'cmp.note',
+    'save-badge':'save.badge',
+    'free-billing':'free.billing','free-cta':'free.cta',
+    'free-f1':'free.f1','free-f2':'free.f2','free-f3':'free.f3',
+    'free-f4':'free.f4','free-f5':'free.f5','free-f6':'free.f6',
+    'trader-popular':'trader.popular','trader-cta':'trader.cta',
+    'trader-f1':'trader.f1','trader-f2':'trader.f2','trader-f3':'trader.f3',
+    'trader-f4':'trader.f4','trader-f5':'trader.f5','trader-f6':'trader.f6','trader-f7':'trader.f7',
+    'pro-cta':'pro.cta',
+    'pro-f1':'pro.f1','pro-f2':'pro.f2','pro-f3':'pro.f3',
+    'pro-f4':'pro.f4','pro-f5':'pro.f5','pro-f6':'pro.f6',
+    'ba-before-title':'ba.before.title',
+    'ba-b1':'ba.b1','ba-b2':'ba.b2','ba-b3':'ba.b3',
+    'ba-b4':'ba.b4','ba-b5':'ba.b5','ba-b6':'ba.b6',
+    'ba-after-title':'ba.after.title',
+    'ba-a1':'ba.a1','ba-a2':'ba.a2','ba-a3':'ba.a3',
+    'ba-a4':'ba.a4','ba-a5':'ba.a5','ba-a6':'ba.a6',
   };
   Object.entries(ids).forEach(([id, key]) => {
     if (!key) return;
