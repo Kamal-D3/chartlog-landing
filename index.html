@@ -268,9 +268,34 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
 .fkpi { transition: filter .2s ease, box-shadow .2s ease; }
 .fkpi:hover { filter: brightness(1.25); box-shadow: 0 10px 30px rgba(0,0,0,.45); }
 
+/* INTEGRATIONS */
+.int-grid { display: grid; grid-template-columns: 1fr 150px 1fr; gap: 28px; align-items: center; text-align: left; max-width: 1000px; margin: 60px auto 0; }
+.int-col-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 12px; }
+.int-broker { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 11px 16px; margin-bottom: 8px; transition: all .25s; }
+.int-broker:last-child { margin-bottom: 0; }
+.int-api-col .int-broker:hover { border-color: var(--border2); transform: translateX(4px); }
+.int-csv-col .int-broker:hover { border-color: var(--border2); transform: translateX(-4px); }
+.int-broker-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; font-family: var(--display); letter-spacing: -.5px; }
+.int-broker-info { flex: 1; min-width: 0; }
+.int-broker-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.int-broker-type { font-size: 11px; color: var(--muted); }
+.int-broker-badge { font-size: 11px; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+.int-broker-badge::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; flex-shrink: 0; }
+.int-broker-check { color: var(--muted); font-size: 14px; margin-left: auto; }
+.int-hub { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.int-hub-ring { width: 100px; height: 100px; border-radius: 50%; background: rgba(0,212,255,.04); border: 1.5px solid rgba(0,212,255,.2); display: flex; align-items: center; justify-content: center; position: relative; animation: planPulse 3.5s ease-in-out infinite; }
+.int-hub-ring::before { content: ''; position: absolute; inset: -9px; border-radius: 50%; border: 1px solid rgba(0,212,255,.07); pointer-events: none; }
+.int-hub-ring::after { content: ''; position: absolute; inset: -18px; border-radius: 50%; border: 1px solid rgba(0,212,255,.03); pointer-events: none; }
+.int-hub-name { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: .3px; }
+.int-hub-feats { display: flex; flex-direction: column; gap: 7px; width: 100%; }
+.int-hub-feat { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--soft); white-space: nowrap; }
+.int-hub-feat-icon { width: 18px; height: 18px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .features-grid, .plans-grid, .ref-steps, .ba-wrap { grid-template-columns: 1fr; }
+  .int-grid { grid-template-columns: 1fr; }
+  .int-hub { display: none; }
   .mockup-body { grid-template-columns: 1fr; height: auto; }
   .mockup-sidebar { display: none; }
   .mock-kpis { grid-template-columns: repeat(3,1fr); }
@@ -599,6 +624,82 @@ footer { border-top: 1px solid var(--border); padding: 48px 5%; display: flex; j
       <div class="how-step"><div class="how-num">02</div><div class="how-content"><h3 id="how2-title">Get instant AI feedback on every trade</h3><p id="how2-p">As soon as a trade is saved, the AI coach analyses your entry, risk management, and exit. It spots your recurring mistakes before they become expensive habits.</p></div></div>
       <div class="how-step"><div class="how-num">03</div><div class="how-content"><h3 id="how3-title">Track your real statistics — not just P&L</h3><p id="how3-p">Winrate by scenario, discipline score, R:R evolution, emotion impact, hourly heatmap. Numbers that actually tell you where your edge is.</p></div></div>
       <div class="how-step"><div class="how-num">04</div><div class="how-content"><h3 id="how4-title">Refine your plan, stay in the zone</h3><p id="how4-p">Your trading plan lives in Chartlog. The morning brief keeps it top of mind. The evening review closes the loop. Progress becomes a system.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section id="integrations" style="background:rgba(8,13,28,.5)">
+  <div style="max-width:1100px;margin:0 auto;text-align:center">
+    <div class="section-label" id="int-label">Integrations</div>
+    <h2 class="section-title" id="int-title">Connect your <em>broker.</em></h2>
+    <p class="section-sub" style="margin:0 auto" id="int-sub">Set up in under a minute. API auto-sync or CSV import — all your trades, automatically.</p>
+    <div class="int-grid reveal">
+      <div class="int-api-col">
+        <div class="int-col-label" id="int-api-label">API Auto-Sync</div>
+        <div class="int-broker">
+          <div class="int-broker-icon" style="background:#F0B90B;color:#000">B</div>
+          <div class="int-broker-info"><div class="int-broker-name">Binance</div><div class="int-broker-type">API Auto-Sync</div></div>
+          <div class="int-broker-badge" id="int-ready-1">Ready</div>
+        </div>
+        <div class="int-broker">
+          <div class="int-broker-icon" style="background:#FF6B35;color:#fff">BY</div>
+          <div class="int-broker-info"><div class="int-broker-name">Bybit</div><div class="int-broker-type">API Auto-Sync</div></div>
+          <div class="int-broker-badge" id="int-ready-2">Ready</div>
+        </div>
+        <div class="int-broker">
+          <div class="int-broker-icon" style="background:#005B99;color:#fff;font-size:10px">OA</div>
+          <div class="int-broker-info"><div class="int-broker-name">Oanda</div><div class="int-broker-type">API Auto-Sync</div></div>
+          <div class="int-broker-badge" id="int-ready-3">Ready</div>
+        </div>
+      </div>
+      <div class="int-hub">
+        <div class="int-hub-ring">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="22" r="16" stroke="rgba(0,212,255,.35)" stroke-width="1.5"/>
+            <circle cx="22" cy="22" r="7" stroke="rgba(0,212,255,.55)" stroke-width="1.5"/>
+            <circle cx="22" cy="22" r="2.5" fill="#00d4ff"/>
+            <line x1="22" y1="4" x2="22" y2="13" stroke="rgba(0,212,255,.35)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="22" y1="31" x2="22" y2="40" stroke="rgba(0,212,255,.35)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="4" y1="22" x2="13" y2="22" stroke="rgba(0,212,255,.35)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="31" y1="22" x2="40" y2="22" stroke="rgba(0,212,255,.35)" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="int-hub-name">Chartlog</div>
+        <div class="int-hub-feats">
+          <div class="int-hub-feat"><div class="int-hub-feat-icon" style="background:rgba(0,212,255,.1);color:var(--accent)">⟳</div><span id="int-feat1">One-click sync</span></div>
+          <div class="int-hub-feat"><div class="int-hub-feat-icon" style="background:rgba(168,85,247,.1);color:#c084fc">⊘</div><span id="int-feat2">Read-only API keys</span></div>
+          <div class="int-hub-feat"><div class="int-hub-feat-icon" style="background:rgba(0,230,138,.1);color:var(--green)">↓</div><span id="int-feat3">Automatic import</span></div>
+        </div>
+      </div>
+      <div class="int-csv-col">
+        <div class="int-col-label" id="int-csv-label">+ CSV Import</div>
+        <div class="int-broker">
+          <div class="int-broker-icon" style="background:#1565C0;color:#fff;font-size:10px">MT5</div>
+          <div class="int-broker-info"><div class="int-broker-name">MetaTrader 5</div><div class="int-broker-type">CSV Import</div></div>
+          <div class="int-broker-check">✓</div>
+        </div>
+        <div class="int-broker">
+          <div class="int-broker-icon" style="background:#1E40AF;color:#fff;font-size:10px">MT4</div>
+          <div class="int-broker-info"><div class="int-broker-name">MetaTrader 4</div><div class="int-broker-type">CSV Import</div></div>
+          <div class="int-broker-check">✓</div>
+        </div>
+        <div class="int-broker">
+          <div class="int-broker-icon" style="background:#00875A;color:#fff;font-size:10px">PRT</div>
+          <div class="int-broker-info"><div class="int-broker-name">ProRealTime</div><div class="int-broker-type">CSV Import</div></div>
+          <div class="int-broker-check">✓</div>
+        </div>
+        <div class="int-broker">
+          <div class="int-broker-icon" style="background:#E85427;color:#fff;font-size:11px">cT</div>
+          <div class="int-broker-info"><div class="int-broker-name">cTrader</div><div class="int-broker-type">CSV Import</div></div>
+          <div class="int-broker-check">✓</div>
+        </div>
+        <div class="int-broker" style="border-style:dashed">
+          <div class="int-broker-icon" style="background:rgba(148,163,184,.08);color:var(--soft);font-size:10px;border:1px dashed var(--border)">CSV</div>
+          <div class="int-broker-info"><div class="int-broker-name" id="int-any-csv">Any CSV</div><div class="int-broker-type" id="int-any-csv-type">Generic import</div></div>
+          <div class="int-broker-check">✓</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -968,6 +1069,11 @@ const LANGS = {
     'ba.a4':'Screenshots linked to each trade, stored securely',
     'ba.a5':'Discipline score, patterns, heatmap — all automatic',
     'ba.a6':'Accessible anywhere, synced across all devices',
+    'int.label':'Integrations','int.title':'Connect your <em>broker.</em>',
+    'int.sub':'Set up in under a minute. API auto-sync or CSV import — all your trades, automatically.',
+    'int.api.label':'API Auto-Sync','int.csv.label':'+ CSV Import','int.ready':'Ready',
+    'int.feat1':'One-click sync','int.feat2':'Read-only API keys','int.feat3':'Automatic import',
+    'int.any.csv':'Any CSV','int.any.csv.type':'Generic import',
   },
   fr: {
     'nav.features':'Fonctionnalités','nav.how':'Comment ça marche','nav.pricing':'Tarifs','nav.referral':'Parrainage','nav.cta':'Commencer gratuitement →',
@@ -1047,6 +1153,11 @@ const LANGS = {
     'ba.a4':'Screenshots liés à chaque trade, stockés en sécurité',
     'ba.a5':'Score de discipline, patterns, heatmap — tout automatique',
     'ba.a6':'Accessible partout, synchronisé sur tous les appareils',
+    'int.label':'Intégrations','int.title':'Connecte ton <em>broker.</em>',
+    'int.sub':'Paramétrage en moins d\'une minute. Sync API ou import CSV — tous tes trades, automatiquement.',
+    'int.api.label':'API Auto-Sync','int.csv.label':'+ Import CSV','int.ready':'Prêt',
+    'int.feat1':'Sync en un clic','int.feat2':'Clés API en lecture seule','int.feat3':'Import automatique',
+    'int.any.csv':'Tout CSV','int.any.csv.type':'Import générique',
   }
 };
 
@@ -1111,6 +1222,11 @@ function applyLang() {
     'ba-after-title':'ba.after.title',
     'ba-a1':'ba.a1','ba-a2':'ba.a2','ba-a3':'ba.a3',
     'ba-a4':'ba.a4','ba-a5':'ba.a5','ba-a6':'ba.a6',
+    'int-label':'int.label','int-title':'int.title','int-sub':'int.sub',
+    'int-api-label':'int.api.label','int-csv-label':'int.csv.label',
+    'int-ready-1':'int.ready','int-ready-2':'int.ready','int-ready-3':'int.ready',
+    'int-feat1':'int.feat1','int-feat2':'int.feat2','int-feat3':'int.feat3',
+    'int-any-csv':'int.any.csv','int-any-csv-type':'int.any.csv.type',
   };
   Object.entries(ids).forEach(([id, key]) => {
     if (!key) return;
